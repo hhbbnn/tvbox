@@ -65,6 +65,16 @@ public class Movie implements Serializable {
         @XStreamAlias("tag")
         public String tag;
 
+        @Override
+        public String toString() {
+            return "Video{" +
+                    "id='" + id + '\'' +
+                    ", name='" + name + '\'' +
+                    ", note='" + note + '\'' +
+                    ", pic=" + pic +
+                    '}';
+        }
+
         @XStreamAlias("dl")
         public static class UrlBean implements Serializable {
             @XStreamImplicit(itemFieldName = "dd")
