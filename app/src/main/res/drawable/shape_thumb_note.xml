@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/color_3D3D3D" />
-    <corners android:radius="5mm" />
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+       android:shape="rectangle">
+    <!-- 设置半透明背景色 -->
+    <solid android:color="#AA000000"/> <!-- AA 代表透明度，这里是 50% 的不透明度 -->
+    <!-- 只设置左下角的圆角 -->
+    <corners android:bottomLeftRadius="16dp" />
 </shape>

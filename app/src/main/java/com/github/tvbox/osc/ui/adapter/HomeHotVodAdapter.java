@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.github.tvbox.osc.R;
@@ -17,20 +16,18 @@ import com.github.tvbox.osc.util.HawkConfig;
 import com.github.tvbox.osc.util.MD5;
 import com.orhanobut.hawk.Hawk;
 import com.squareup.picasso.Picasso;
+import me.jessyan.autosize.utils.AutoSizeUtils;
 
 import java.util.ArrayList;
 
-import me.jessyan.autosize.utils.AutoSizeUtils;
-
 public class HomeHotVodAdapter extends BaseQuickAdapter<Movie.Video, BaseViewHolder> {
-
     public HomeHotVodAdapter() {
-        super(R.layout.item_user_hot_vod, new ArrayList<>());
+        super(R.layout.item_user_hot_video, new ArrayList<>());
     }
 
     @Override
     protected void convert(BaseViewHolder helper, Movie.Video item) {
-    	// takagen99: Add Delete Mode
+        // takagen99: Add Delete Mode
         FrameLayout tvDel = helper.getView(R.id.delFrameLayout);
         if (HawkConfig.hotVodDelete) {
             tvDel.setVisibility(View.VISIBLE);
@@ -39,11 +36,11 @@ public class HomeHotVodAdapter extends BaseQuickAdapter<Movie.Video, BaseViewHol
         }
 
         TextView tvRate = helper.getView(R.id.tvRate);
-        if (Hawk.get(HawkConfig.HOME_REC, 0) == 2){
+        if (Hawk.get(HawkConfig.HOME_REC, 0) == 2) {
             tvRate.setText(ApiConfig.get().getSource(item.sourceKey).getName());
-        }else if(Hawk.get(HawkConfig.HOME_REC, 0) == 0){
+        } else if (Hawk.get(HawkConfig.HOME_REC, 0) == 0) {
             tvRate.setText("豆瓣热播");
-        }else {
+        } else {
             tvRate.setVisibility(View.GONE);
         }
 
@@ -58,19 +55,20 @@ public class HomeHotVodAdapter extends BaseQuickAdapter<Movie.Video, BaseViewHol
         ImageView ivThumb = helper.getView(R.id.ivThumb);
         //由于部分电视机使用glide报错
         if (!TextUtils.isEmpty(item.pic)) {
-            item.pic=item.pic.trim();
+            item.pic = item.pic.trim();
+//            System.out.println(item.pic);
             Picasso.get()
                     .load(DefaultConfig.checkReplaceProxy(item.pic))
                     .transform(new RoundTransformation(MD5.string2MD5(item.pic))
                             .centerCorp(true)
-                            .override(AutoSizeUtils.mm2px(mContext, 300), AutoSizeUtils.mm2px(mContext, 400))
-                            .roundRadius(AutoSizeUtils.mm2px(mContext, 10), RoundTransformation.RoundType.ALL))
-                    .placeholder(R.drawable.img_loading_placeholder)
-                    .noFade()
-                    .error(R.drawable.img_loading_placeholder)
-                    .into(ivThumb);
+                            .override(AutoSizeUtils.mm2px(mContext, 220), AutoSizeUtils.mm2px(mContext, 330))
+                            .roundRadius(AutoSizeUtils.mm2px(mContext, 0), RoundTransformation.RoundType.ALL))
+                            .placeholder(R.drawable.default_poster)
+                            .noFade()
+                            .error(R.drawable.default_poster_fail)
+                            .into(ivThumb);
         } else {
-            ivThumb.setImageResource(R.drawable.img_loading_placeholder);
+            ivThumb.setImageResource(R.drawable.default_poster);
         }
     }
 }

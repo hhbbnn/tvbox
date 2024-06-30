@@ -16,6 +16,18 @@ android {
                 arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
             }
         }
+//        ndk {
+//            abiFilters "armeabi-v7a", "x86"
+//        }
+    }
+
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'x86', 'x86_64', 'armeabi-v7a', 'armeabi'
+            universalApk false
+        }
     }
 
     packagingOptions {
@@ -27,17 +39,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             minifyEnabled false
 
-            ndk {
-                abiFilters 'armeabi-v7a'
-            }
+//            ndk {
+//                abiFilters 'armeabi-v7a'
+//            }
         }
         release {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             minifyEnabled true
 
-            ndk {
-                abiFilters 'armeabi-v7a'
-            }
+//            ndk {
+//                abiFilters 'armeabi-v7a'
+//            }
         }
     }
 
@@ -64,7 +76,6 @@ android {
 
 dependencies {
     api fileTree(dir: "libs", include: ['*.jar', '*.aar'])
-
 
     implementation 'org.nanohttpd:nanohttpd:2.3.1'
     implementation 'com.google.zxing:core:3.3.0'
