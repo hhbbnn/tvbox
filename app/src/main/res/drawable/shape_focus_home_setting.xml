@@ -2,14 +2,10 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_focused="true">
         <shape>
-            <corners android:radius="20mm"/>
+            <!-- 设置背景颜色 -->
             <solid android:color="@color/color_1890FF"/>
-        </shape>
-    </item>
-    <item android:state_focused="false">
-        <shape>
-            <corners android:radius="20mm"/>
-            <solid android:color="@android:color/transparent"/>
+            <!-- 设置圆角半径 -->
+            <corners android:radius="12mm"/>
         </shape>
     </item>
 </selector>

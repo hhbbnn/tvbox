@@ -1,75 +1,207 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent">
     <LinearLayout
-        android:id="@+id/topLayout"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/vs_50"
-        android:layout_marginTop="@dimen/vs_10"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/vs_50"
-        android:paddingRight="@dimen/vs_50"
-        android:paddingBottom="@dimen/vs_10"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+            android:id="@+id/topLayout"
+            android:layout_width="match_parent"
+            android:layout_height="70mm"
+            android:layout_marginTop="20mm"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="40mm"
+            android:paddingRight="40mm"
+            android:paddingBottom="@dimen/vs_10"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/tvName"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:gravity="left|center_vertical"
-            android:text="@string/app_name"
-            android:textAlignment="gravity"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/ts_30" />
-        <!--时间-->
-        <TextView
-            android:id="@+id/tvDate"
-            android:layout_width="@dimen/vs_0"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:gravity="right|center_vertical"
-            android:textAlignment="gravity"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/ts_28"
-            tools:text="14:38" />
+        <!--        logo-->
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_height="wrap_content">
+            <!--        logo-->
+            <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:gravity="left|center_vertical"
+                    android:text="@string/app_name"
+                    android:textAlignment="gravity"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/ts_22"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/tvUserHome"
+                android:layout_width="match_parent"
+                android:layout_height="70mm"
+                android:gravity="right|center_vertical"
+                android:orientation="horizontal"
+                android:layout_gravity="end">
+
+            <LinearLayout
+                    android:id="@+id/tvHistory"
+                    android:layout_width="70mm"
+                    android:layout_height="50mm"
+                    android:gravity="center"
+                    android:background="@drawable/shape_focus_home_setting"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:focusable="true"
+                    android:nextFocusLeft="@+id/tvSetting"
+                    android:orientation="horizontal">
+                <ImageView
+                        android:layout_width="40mm"
+                        android:layout_height="40mm"
+                        android:layout_gravity="center"
+                        android:alpha="1"
+                        android:src="@drawable/icon_history"/>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/tvFavorite"
+                    android:layout_width="70mm"
+                    android:layout_height="50mm"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:background="@drawable/shape_focus_home_setting"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:focusable="true"
+                    android:orientation="horizontal">
+                <ImageView
+                        android:layout_width="40mm"
+                        android:layout_height="40mm"
+                        android:layout_gravity="center"
+                        android:alpha="1"
+                        android:src="@drawable/icon_collect"/>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/tvLive"
+                    android:layout_width="70mm"
+                    android:layout_height="50mm"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:background="@drawable/shape_focus_home_setting"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:focusable="true"
+                    android:orientation="horizontal">
+                <ImageView
+                        android:layout_width="40mm"
+                        android:layout_height="40mm"
+                        android:layout_gravity="center"
+                        android:alpha="1"
+                        android:src="@drawable/icon_live"/>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/tvSearch"
+                    android:layout_width="70mm"
+                    android:layout_height="50mm"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:background="@drawable/shape_focus_home_setting"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:focusable="true"
+                    android:orientation="horizontal">
+                <ImageView
+                        android:layout_width="40mm"
+                        android:layout_height="40mm"
+                        android:layout_gravity="center"
+                        android:alpha="1"
+                        android:src="@drawable/icon_search"/>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/tvPush"
+                    android:layout_width="70mm"
+                    android:layout_height="50mm"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:background="@drawable/shape_focus_home_setting"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:focusable="true"
+                    android:orientation="horizontal">
+                <ImageView
+                        android:layout_width="40mm"
+                        android:layout_height="40mm"
+                        android:layout_gravity="center"
+                        android:alpha="1"
+                        android:src="@drawable/icon_push"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/tvSetting"
+                    android:layout_width="70mm"
+                    android:layout_height="50mm"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:background="@drawable/shape_focus_home_setting"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:focusable="true"
+                    android:nextFocusRight="@+id/tvHistory"
+                    android:orientation="horizontal">
+                <ImageView
+                        android:layout_width="27dp"
+                        android:layout_height="40mm"
+                        android:layout_gravity="center"
+                        android:alpha="1"
+                        android:src="@drawable/icon_setting"/>
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="@dimen/vs_100"
+                          android:layout_height="40mm">
+                <!--时间-->
+                <TextView
+                        android:id="@+id/tvDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40mm"
+                        android:layout_weight="1"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:gravity="right|center_vertical"
+                        android:textAlignment="gravity"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/ts_30"
+                        tools:text="14:38"/>
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/contentLayout"
-        android:layout_width="@dimen/vs_0"
-        android:layout_height="@dimen/vs_0"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topLayout">
+            android:id="@+id/contentLayout"
+            android:layout_width="@dimen/vs_0"
+            android:layout_height="@dimen/vs_0"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/topLayout">
 
         <com.owen.tvrecyclerview.widget.TvRecyclerView
-            android:id="@+id/mGridView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/vs_10"
-            android:layout_marginBottom="@dimen/vs_10"
-            android:paddingLeft="@dimen/vs_50"
-            android:paddingRight="@dimen/vs_50"
-            app:tv_selectedItemIsCentered="true" />
-
+                android:id="@+id/mGridView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vs_10"
+                android:layout_marginBottom="@dimen/vs_10"
+                android:paddingLeft="40mm"
+                android:paddingRight="40mm"
+                app:tv_selectedItemIsCentered="true"/>
         <com.github.tvbox.osc.ui.tv.widget.NoScrollViewPager
-            android:id="@+id/mViewPager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+                android:id="@+id/mViewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

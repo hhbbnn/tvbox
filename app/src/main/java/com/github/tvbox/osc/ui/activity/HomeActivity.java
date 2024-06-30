@@ -44,6 +44,7 @@ import com.github.tvbox.osc.ui.tv.widget.NoScrollViewPager;
 import com.github.tvbox.osc.ui.tv.widget.ViewObj;
 import com.github.tvbox.osc.util.AppManager;
 import com.github.tvbox.osc.util.DefaultConfig;
+import com.github.tvbox.osc.util.FastClickCheckUtil;
 import com.github.tvbox.osc.util.HawkConfig;
 import com.github.tvbox.osc.util.LOG;
 import com.github.tvbox.osc.viewmodel.SourceViewModel;
@@ -63,7 +64,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class HomeActivity extends BaseActivity {
+public class HomeActivity extends BaseActivity implements View.OnClickListener {
+    private LinearLayout tvLive;
+    private LinearLayout tvSearch;
+    private LinearLayout tvSetting;
+    private LinearLayout tvHistory;
+    private LinearLayout tvCollect;
+    private LinearLayout tvPush;
+
     private LinearLayout topLayout;
     private LinearLayout contentLayout;
     private TextView tvDate;
@@ -115,6 +123,27 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void initView() {
+        tvLive = findViewById(R.id.tvLive);
+        tvSearch = findViewById(R.id.tvSearch);
+        tvSetting = findViewById(R.id.tvSetting);
+        tvCollect = findViewById(R.id.tvFavorite);
+        tvHistory = findViewById(R.id.tvHistory);
+        tvPush = findViewById(R.id.tvPush);
+
+        tvLive.setOnClickListener(this);
+        tvSearch.setOnClickListener(this);
+        tvSetting.setOnClickListener(this);
+        tvHistory.setOnClickListener(this);
+        tvPush.setOnClickListener(this);
+        tvCollect.setOnClickListener(this);
+
+        tvLive.setOnFocusChangeListener(focusChangeListener);
+        tvSearch.setOnFocusChangeListener(focusChangeListener);
+        tvSetting.setOnFocusChangeListener(focusChangeListener);
+        tvHistory.setOnFocusChangeListener(focusChangeListener);
+        tvPush.setOnFocusChangeListener(focusChangeListener);
+        tvCollect.setOnFocusChangeListener(focusChangeListener);
+
         this.topLayout = findViewById(R.id.topLayout);
         this.tvDate = findViewById(R.id.tvDate);
         this.tvName = findViewById(R.id.tvName);
@@ -125,6 +154,10 @@ public class HomeActivity extends BaseActivity {
         this.mGridView.setLayoutManager(new V7LinearLayoutManager(this.mContext, 0, false));
         this.mGridView.setSpacingWithMargins(0, AutoSizeUtils.dp2px(this.mContext, 10.0f));
         this.mGridView.setAdapter(this.sortAdapter);
+
+        /**
+         * 子菜单切换
+         */
         this.mGridView.setOnItemListener(new TvRecyclerView.OnItemListener() {
             public void onItemPreSelected(TvRecyclerView tvRecyclerView, View view, int position) {
                 if (view != null && !HomeActivity.this.isDownOrUp) {
@@ -658,5 +691,39 @@ public class HomeActivity extends BaseActivity {
             }
         }, sites, sites.indexOf(ApiConfig.get().getHomeSourceBean()));
         dialog.show();
+    }
+
+    private View.OnFocusChangeListener focusChangeListener = new View.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            if (hasFocus)
+//                textView.setTextColor(HomeActivity.this.getResources().getColor(R.color.color_FFFFFF));
+                v.animate().setDuration(300).setInterpolator(new BounceInterpolator()).start();
+            else
+                v.animate().setDuration(300).setInterpolator(new BounceInterpolator()).start();
+        }
+    };
+
+    @Override
+    public void onClick(View v) {
+
+        // takagen99: Remove Delete Mode
+        HawkConfig.hotVodDelete = false;
+
+        FastClickCheckUtil.check(v);
+
+        if (v.getId() == R.id.tvLive) {
+            jumpActivity(LivePlayActivity.class);
+        } else if (v.getId() == R.id.tvSearch) {
+            jumpActivity(SearchActivity.class);
+        } else if (v.getId() == R.id.tvSetting) {
+            jumpActivity(SettingActivity.class);
+        } else if (v.getId() == R.id.tvHistory) {
+            jumpActivity(HistoryActivity.class);
+        } else if (v.getId() == R.id.tvPush) {
+            jumpActivity(PushActivity.class);
+        } else if (v.getId() == R.id.tvFavorite) {
+            jumpActivity(CollectActivity.class);
+        }
     }
 }
