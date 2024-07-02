@@ -2,30 +2,26 @@ package com.github.catvod.crawler;
 
 
 import com.github.tvbox.osc.base.App;
-
 import com.github.tvbox.osc.util.LOG;
 import com.github.tvbox.osc.util.MD5;
-
 import com.github.tvbox.osc.util.js.JsSpider;
 import com.lzy.okgo.OkGo;
+import dalvik.system.DexClassLoader;
+import okhttp3.Response;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
-import dalvik.system.DexClassLoader;
-import okhttp3.Response;
 
 public class JsLoader {
     private static ConcurrentHashMap<String, Spider> spiders = new ConcurrentHashMap<>();
     private static ConcurrentHashMap<String, Class<?>> classs = new ConcurrentHashMap<>();
 
     public static void load() {
-        for (Spider spider : spiders.values()){
+        for (Spider spider : spiders.values()) {
             spider.cancelByTag();
             spider.destroy();
         }
@@ -34,7 +30,7 @@ public class JsLoader {
     }
 
     public static void stopAll() {
-        for (Spider spider : spiders.values()){
+        for (Spider spider : spiders.values()) {
             spider.cancelByTag();
         }
     }
@@ -108,11 +104,14 @@ public class JsLoader {
         }
         return null;
     }
-    private volatile String recentJarKey = "";
 
+    private volatile String recentJarKey = "";
 
     public Spider getSpider(String key, String api, String ext, String jar) {
         Class<?> classLoader = null;
+        Spider sp = new SpiderNull();
+        recentJarKey = key;
+
         if (!jar.isEmpty()) {
             String[] urls = jar.split(";md5;");
             String jarUrl = urls[0];
@@ -120,19 +119,20 @@ public class JsLoader {
             String jarMd5 = urls.length > 1 ? urls[1].trim() : "";
             classLoader = loadJarInternal(jarUrl, jarMd5, jarKey);
         }
-        recentJarKey = key;
-        if (spiders.containsKey(key))
+
+        if (spiders.containsKey(key)) {
             return spiders.get(key);
+        }
+
         try {
-            Spider sp = new JsSpider(key, api, classLoader);
+            sp = new JsSpider(key, api, classLoader);
             sp.init(App.getInstance(), ext);
             spiders.put(key, sp);
+        } catch (Exception e) {
+            LOG.e("getSpider", e);
+        } finally {
             return sp;
-        } catch (Throwable th) {
-            th.printStackTrace();
-            LOG.e("QuJS", th);
         }
-        return new SpiderNull();
     }
 
     public Object[] proxyInvoke(Map<String, String> params) {

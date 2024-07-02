@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_focused="true">
+        <shape>
+            <solid android:color="@color/color_1890FF"/> <!-- 这里设置下划线的颜色为红色 -->
+            <size android:height="2dp"/> <!-- 设置下划线的高度 -->
+        </shape>
+    </item>
+</selector>

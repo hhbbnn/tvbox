@@ -2,7 +2,6 @@ package com.github.tvbox.osc.util;
 
 import android.app.Activity;
 import android.content.Context;
-
 import com.github.tvbox.osc.api.ApiConfig;
 import com.github.tvbox.osc.bean.IJKCode;
 import com.github.tvbox.osc.player.IjkMediaPlayer;
@@ -13,14 +12,8 @@ import com.github.tvbox.osc.player.thirdparty.ReexPlayer;
 import com.github.tvbox.osc.player.thirdparty.RemoteTVBox;
 import com.github.tvbox.osc.player.thirdparty.VlcPlayer;
 import com.orhanobut.hawk.Hawk;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import tv.danmaku.ijk.media.player.IjkLibLoader;
 import xyz.doikki.videoplayer.exo.ExoMediaPlayerFactory;
 import xyz.doikki.videoplayer.player.AndroidMediaPlayerFactory;
@@ -29,11 +22,16 @@ import xyz.doikki.videoplayer.player.VideoView;
 import xyz.doikki.videoplayer.render.RenderViewFactory;
 import xyz.doikki.videoplayer.render.TextureRenderViewFactory;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class PlayerHelper {
     public static void updateCfg(VideoView videoView, JSONObject playerCfg) {
-        updateCfg(videoView,playerCfg,-1);
+        updateCfg(videoView, playerCfg, -1);
     }
-    public static void updateCfg(VideoView videoView, JSONObject playerCfg,int forcePlayerType) {
+
+    public static void updateCfg(VideoView videoView, JSONObject playerCfg, int forcePlayerType) {
         int playerType = Hawk.get(HawkConfig.PLAY_TYPE, 0);
         int renderType = Hawk.get(HawkConfig.PLAY_RENDER, 0);
         String ijkCode = Hawk.get(HawkConfig.IJK_CODEC, "软解码");
@@ -46,7 +44,7 @@ public class PlayerHelper {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        if(forcePlayerType>=0)playerType = forcePlayerType;
+        if (forcePlayerType >= 0) playerType = forcePlayerType;
         IJKCode codec = ApiConfig.get().getIJKCodec(ijkCode);
         PlayerFactory playerFactory;
         if (playerType == 1) {
@@ -136,20 +134,17 @@ public class PlayerHelper {
 
 
     public static void init() {
-        try {
-            tv.danmaku.ijk.media.player.IjkMediaPlayer.loadLibrariesOnce(new IjkLibLoader() {
-                @Override
-                public void loadLibrary(String s) throws UnsatisfiedLinkError, SecurityException {
-                    try {
-                        System.loadLibrary(s);
-                    } catch (Throwable th) {
-                        th.printStackTrace();
-                    }
+        tv.danmaku.ijk.media.player.IjkMediaPlayer.loadLibrariesOnce(new IjkLibLoader() {
+            @Override
+            public void loadLibrary(String s) throws UnsatisfiedLinkError, SecurityException {
+                try {
+                    System.loadLibrary(s);
+                } catch (Throwable th) {
+                    LOG.e("异常信息：System.loadLibrary(" + s + ")", th);
+//                    Toast.makeText(PlayerHelper(), "已复制", Toast.LENGTH_SHORT).show();
                 }
-            });
-        } catch (Throwable th) {
-            th.printStackTrace();
-        }
+            }
+        });
     }
 
     public static String getPlayerName(int playType) {
@@ -162,6 +157,7 @@ public class PlayerHelper {
     }
 
     private static HashMap<Integer, String> mPlayersInfo = null;
+
     public static HashMap<Integer, String> getPlayersInfo() {
         if (mPlayersInfo == null) {
             HashMap<Integer, String> playersInfo = new HashMap<>();
@@ -179,6 +175,7 @@ public class PlayerHelper {
     }
 
     private static HashMap<Integer, Boolean> mPlayersExistInfo = null;
+
     public static HashMap<Integer, Boolean> getPlayersExistInfo() {
         if (mPlayersExistInfo == null) {
             HashMap<Integer, Boolean> playersExist = new HashMap<>();
@@ -207,7 +204,7 @@ public class PlayerHelper {
     public static ArrayList<Integer> getExistPlayerTypes() {
         HashMap<Integer, Boolean> playersExistInfo = getPlayersExistInfo();
         ArrayList<Integer> existPlayers = new ArrayList<>();
-        for(Integer playerType : playersExistInfo.keySet()) {
+        for (Integer playerType : playersExistInfo.keySet()) {
             if (playersExistInfo.get(playerType)) {
                 existPlayers.add(playerType);
             }
@@ -280,11 +277,11 @@ public class PlayerHelper {
     }
 
     public static String getDisplaySpeed(long speed) {
-        if(speed > 1048576)
+        if (speed > 1048576)
             return new DecimalFormat("#.00").format(speed / 1048576d) + "Mb/s";
-        else if(speed > 1024)
+        else if (speed > 1024)
             return (speed / 1024) + "Kb/s";
         else
-            return speed > 0?speed + "B/s":"";
+            return speed > 0 ? speed + "B/s" : "";
     }
 }
