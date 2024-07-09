@@ -33,7 +33,7 @@ public class FastSearchAdapter extends BaseQuickAdapter<Movie.Video, BaseViewHol
         if (item.note != null && !item.note.isEmpty()) {
             helper.setText(R.id.tvNote, item.note);
         }
-        ImageView ivThumb = helper.getView(R.id.ivThumb);
+        ImageView videoPoster = helper.getView(R.id.videoPoster);
         if (!TextUtils.isEmpty(item.pic)) {
             Picasso.get()
                     .load(item.pic)
@@ -44,9 +44,9 @@ public class FastSearchAdapter extends BaseQuickAdapter<Movie.Video, BaseViewHol
                     .placeholder(R.drawable.img_loading_placeholder)
                     .noFade()
                     .error(R.drawable.img_loading_placeholder)
-                    .into(ivThumb);
+                    .into(videoPoster);
         } else {
-            ivThumb.setImageResource(R.drawable.img_loading_placeholder);
+            videoPoster.setImageResource(R.drawable.img_loading_placeholder);
         }
 
     }

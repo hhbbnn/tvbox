@@ -83,7 +83,7 @@ public class DetailActivity extends BaseActivity {
     private View llPlayerFragmentContainerBlock;
     private View llPlayerPlace;
     private PlayFragment playFragment = null;
-    private ImageView ivThumb;
+    private ImageView videoPoster;
     private TextView tvName;
     private TextView tvYear;
     private TextView tvSite;
@@ -141,9 +141,9 @@ public class DetailActivity extends BaseActivity {
         llPlayerPlace = findViewById(R.id.previewPlayerPlace);
         llPlayerFragmentContainer = findViewById(R.id.previewPlayer);
         llPlayerFragmentContainerBlock = findViewById(R.id.previewPlayerBlock);
-        ivThumb = findViewById(R.id.ivThumb);
+        videoPoster = findViewById(R.id.videoPoster);
         llPlayerPlace.setVisibility(showPreview ? View.VISIBLE : View.GONE);
-        ivThumb.setVisibility(!showPreview ? View.VISIBLE : View.GONE);
+        videoPoster.setVisibility(!showPreview ? View.VISIBLE : View.GONE);
         tvName = findViewById(R.id.tvName);
         tvYear = findViewById(R.id.tvYear);
         tvSite = findViewById(R.id.tvSite);
@@ -463,6 +463,7 @@ public class DetailActivity extends BaseActivity {
 //                    bundle.putSerializable("VodInfo", previewVodInfo);
                     App.getInstance().setVodInfo(previewVodInfo);
                 }
+
                 playFragment.setData(bundle);
             } else {
                 jumpActivity(PlayActivity.class, bundle);
@@ -574,7 +575,7 @@ public class DetailActivity extends BaseActivity {
             @Override
             public void onChanged(AbsXml absXml) {
                 if (absXml != null && absXml.movie != null && absXml.movie.videoList != null && absXml.movie.videoList.size() > 0) {
-                    showSuccess();
+                    closeLoading();
                     if (!TextUtils.isEmpty(absXml.msg) && !absXml.msg.equals("数据列表")) {
                         Toast.makeText(DetailActivity.this, absXml.msg, Toast.LENGTH_SHORT).show();
                         showEmpty();
@@ -620,9 +621,9 @@ public class DetailActivity extends BaseActivity {
                                 .placeholder(R.drawable.img_loading_placeholder)
                                 .noFade()
                                 .error(R.drawable.img_loading_placeholder)
-                                .into(ivThumb);
+                                .into(videoPoster);
                     } else {
-                        ivThumb.setImageResource(R.drawable.img_loading_placeholder);
+                        videoPoster.setImageResource(R.drawable.img_loading_placeholder);
                     }
 
                     if (vodInfo.seriesMap != null && vodInfo.seriesMap.size() > 0) {

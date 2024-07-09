@@ -5,7 +5,7 @@
             <!-- 设置背景颜色 -->
             <solid android:color="@color/color_1890FF"/>
             <!-- 设置圆角半径 -->
-            <corners android:radius="12mm"/>
+            <corners android:radius="38mm"/>
         </shape>
     </item>
 </selector>

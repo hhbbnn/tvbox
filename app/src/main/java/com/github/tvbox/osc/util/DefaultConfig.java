@@ -13,8 +13,9 @@ import com.github.tvbox.osc.server.ControlManager;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -25,33 +26,31 @@ import java.util.regex.Pattern;
  */
 public class DefaultConfig {
 
-    public static List<MovieSort.SortData> adjustSort(String sourceKey, List<MovieSort.SortData> list, boolean withMy) {
-        List<MovieSort.SortData> data = new ArrayList<>();
-        if (sourceKey != null) {
-            SourceBean sb = ApiConfig.get().getSource(sourceKey);
-            ArrayList<String> categories = sb.getCategories();
-            if (!categories.isEmpty()) {
-                for (String cate : categories) {
-                    for (MovieSort.SortData sortData : list) {
-                        if (sortData.name.equals(cate)) {
-                            if (sortData.filters == null)
-                                sortData.filters = new ArrayList<>();
-                            data.add(sortData);
-                        }
-                    }
-                }
-            } else {
-                for (MovieSort.SortData sortData : list) {
+    public static void setSourceMenuList(String sourceKey, List<MovieSort.SortData> list, List<MovieSort.SortData> menuList) {
+        if (StringUtils.isBlank(sourceKey)) {
+            return;
+        }
+
+        SourceBean sb = ApiConfig.get().getSource(sourceKey);
+        ArrayList<String> moreMenuList = sb.getCategories();
+        if (CollectionUtils.isEmpty(moreMenuList)) {
+            for (MovieSort.SortData sortData : list) {
+                if (sortData.filters == null)
+                    sortData.filters = new ArrayList<>();
+                menuList.add(sortData);
+            }
+            return;
+        }
+
+        for (String cate : moreMenuList) {
+            for (MovieSort.SortData sortData : list) {
+                if (sortData.name.equals(cate)) {
                     if (sortData.filters == null)
                         sortData.filters = new ArrayList<>();
-                    data.add(sortData);
+                    menuList.add(sortData);
                 }
             }
         }
-        if (withMy)
-            data.add(0, new MovieSort.SortData("my0", "主页"));
-        Collections.sort(data);
-        return data;
     }
 
     public static int getAppVersionCode(Context mContext) {
@@ -108,20 +107,21 @@ public class DefaultConfig {
 
     private static final Pattern snifferMatch = Pattern.compile(
             "http((?!http).){12,}?\\.(m3u8|mp4|flv|avi|mkv|rm|wmv|mpg|m4a)\\?.*|" +
-            "http((?!http).){12,}\\.(m3u8|mp4|flv|avi|mkv|rm|wmv|mpg|m4a)|" +
-            "http((?!http).)*?video/tos*|" +
-            "http((?!http).){20,}?/m3u8\\?pt=m3u8.*|" +
-            "http((?!http).)*?default\\.ixigua\\.com/.*|" +
-            "http((?!http).)*?dycdn-tos\\.pstatp[^\\?]*|" +
-            "http.*?/player/m3u8play\\.php\\?url=.*|" +
-            "http.*?/player/.*?[pP]lay\\.php\\?url=.*|" +
-            "http.*?/playlist/m3u8/\\?vid=.*|" +
-            "http.*?\\.php\\?type=m3u8&.*|" +
-            "http.*?/download.aspx\\?.*|" +
-            "http.*?/api/up_api.php\\?.*|" +
-            "https.*?\\.66yk\\.cn.*|" +
-            "http((?!http).)*?netease\\.com/file/.*"
+                    "http((?!http).){12,}\\.(m3u8|mp4|flv|avi|mkv|rm|wmv|mpg|m4a)|" +
+                    "http((?!http).)*?video/tos*|" +
+                    "http((?!http).){20,}?/m3u8\\?pt=m3u8.*|" +
+                    "http((?!http).)*?default\\.ixigua\\.com/.*|" +
+                    "http((?!http).)*?dycdn-tos\\.pstatp[^\\?]*|" +
+                    "http.*?/player/m3u8play\\.php\\?url=.*|" +
+                    "http.*?/player/.*?[pP]lay\\.php\\?url=.*|" +
+                    "http.*?/playlist/m3u8/\\?vid=.*|" +
+                    "http.*?\\.php\\?type=m3u8&.*|" +
+                    "http.*?/download.aspx\\?.*|" +
+                    "http.*?/api/up_api.php\\?.*|" +
+                    "https.*?\\.66yk\\.cn.*|" +
+                    "http((?!http).)*?netease\\.com/file/.*"
     );
+
     public static boolean isVideoFormat(String url) {
         Uri uri = Uri.parse(url);
         String path = uri.getPath();

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.BounceInterpolator;
 import android.widget.Toast;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.github.tvbox.osc.R;
 import com.github.tvbox.osc.api.ApiConfig;
@@ -12,11 +13,13 @@ import com.github.tvbox.osc.base.BaseLazyFragment;
 import com.github.tvbox.osc.bean.Movie;
 import com.github.tvbox.osc.bean.VodInfo;
 import com.github.tvbox.osc.cache.RoomDataManger;
+import com.github.tvbox.osc.constans.SystemConstants;
 import com.github.tvbox.osc.event.ServerEvent;
 import com.github.tvbox.osc.ui.activity.DetailActivity;
 import com.github.tvbox.osc.ui.activity.FastSearchActivity;
 import com.github.tvbox.osc.ui.activity.SearchActivity;
-import com.github.tvbox.osc.ui.adapter.HomeHotVodAdapter;
+import com.github.tvbox.osc.ui.adapter.HomeHotVideoAdapter;
+import com.github.tvbox.osc.ui.animate.ViewAnimate;
 import com.github.tvbox.osc.util.HawkConfig;
 import com.github.tvbox.osc.util.UA;
 import com.google.gson.Gson;
@@ -29,6 +32,7 @@ import com.lzy.okgo.model.Response;
 import com.orhanobut.hawk.Hawk;
 import com.owen.tvrecyclerview.widget.TvRecyclerView;
 import com.owen.tvrecyclerview.widget.V7GridLayoutManager;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -44,7 +48,7 @@ import java.util.List;
  */
 public class UserFragment extends BaseLazyFragment {
 
-    public static HomeHotVodAdapter homeHotVodAdapter;
+    public static HomeHotVideoAdapter homeHotVodAdapter;
     private List<Movie.Video> homeSourceRec;
     public static TvRecyclerView tvHotList1;
     public static TvRecyclerView tvHotList2;
@@ -85,7 +89,7 @@ public class UserFragment extends BaseLazyFragment {
                 vod.name = vodInfo.name;
                 vod.pic = vodInfo.pic;
                 if (vodInfo.playNote != null && !vodInfo.playNote.isEmpty())
-                    vod.note = "上次看到" + vodInfo.playNote;
+                    vod.note = vodInfo.playNote;
                 vodList.add(vod);
             }
             homeHotVodAdapter.setNewData(vodList);
@@ -103,7 +107,7 @@ public class UserFragment extends BaseLazyFragment {
 
         tvHotList1 = findViewById(R.id.tvHotList1);
         tvHotList2 = findViewById(R.id.tvHotList2);
-        homeHotVodAdapter = new HomeHotVodAdapter();
+        homeHotVodAdapter = new HomeHotVideoAdapter();
         homeHotVodAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -146,10 +150,13 @@ public class UserFragment extends BaseLazyFragment {
         homeHotVodAdapter.setOnItemLongClickListener(new BaseQuickAdapter.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                if (ApiConfig.get().getSourceBeanList().isEmpty()) return false;
+                if (ApiConfig.get().getSourceBeanList().isEmpty()) {
+                    return false;
+                }
+
                 Movie.Video vod = ((Movie.Video) adapter.getItem(position));
                 // Additional Check if : Home Rec 0=豆瓣, 1=推荐, 2=历史
-                if ((vod.id != null && !vod.id.isEmpty()) && (Hawk.get(HawkConfig.HOME_REC, 0) == 2)) {
+                if ((vod.id != null && !vod.id.isEmpty()) && (Hawk.get(HawkConfig.HOME_REC, 0) == SystemConstants.Setting.HomeRecType.HISTORY.getCode())) {
                     HawkConfig.hotVodDelete = !HawkConfig.hotVodDelete;
                     homeHotVodAdapter.notifyDataSetChanged();
                 } else {
@@ -164,12 +171,13 @@ public class UserFragment extends BaseLazyFragment {
         tvHotList1.setOnItemListener(new TvRecyclerView.OnItemListener() {
             @Override
             public void onItemPreSelected(TvRecyclerView parent, View itemView, int position) {
-                itemView.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300).setInterpolator(new BounceInterpolator()).start();
             }
 
             @Override
             public void onItemSelected(TvRecyclerView parent, View itemView, int position) {
-                itemView.animate().scaleX(1.03f).scaleY(1.03f).setDuration(300).setInterpolator(new BounceInterpolator()).start();
+                View view = itemView.findViewById(R.id.videoPosterBox);
+                ViewAnimate.animateVideoItemFocus(itemView);
+                view.requestFocus();
             }
 
             @Override
@@ -200,7 +208,7 @@ public class UserFragment extends BaseLazyFragment {
         initHomeHotVod(homeHotVodAdapter);
     }
 
-    private void initHomeHotVod(HomeHotVodAdapter adapter) {
+    private void initHomeHotVod(HomeHotVideoAdapter adapter) {
         if (Hawk.get(HawkConfig.HOME_REC, 0) == 1) {
             if (homeSourceRec != null) {
                 adapter.setNewData(homeSourceRec);
@@ -212,7 +220,7 @@ public class UserFragment extends BaseLazyFragment {
         setDouBanData(adapter);
     }
 
-    private void setDouBanData(HomeHotVodAdapter adapter) {
+    private void setDouBanData(HomeHotVideoAdapter adapter) {
         try {
             Calendar cal = Calendar.getInstance();
             int year = cal.get(Calendar.YEAR);

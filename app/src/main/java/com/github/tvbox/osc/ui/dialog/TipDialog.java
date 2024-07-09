@@ -23,18 +23,21 @@ public class TipDialog extends BaseDialog {
         tipInfo.setText(tip);
         leftBtn.setText(left);
         rightBtn.setText(right);
+
         leftBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listener.left();
             }
         });
+
         rightBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listener.right();
             }
         });
+
         setOnCancelListener(new OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {

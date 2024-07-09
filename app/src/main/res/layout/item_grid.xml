@@ -11,7 +11,7 @@
         android:layout_height="@dimen/vs_280">
 
         <ImageView
-            android:id="@+id/ivThumb"
+            android:id="@+id/videoPoster"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="@dimen/vs_1"

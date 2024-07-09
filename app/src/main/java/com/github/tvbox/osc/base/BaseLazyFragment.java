@@ -275,7 +275,7 @@ public abstract class BaseLazyFragment extends Fragment implements CustomAdapt {
         }
     }
 
-    protected void showSuccess() {
+    protected void closeLoading() {
         if (null != mLoadService) {
             mLoadService.showSuccess();
         }

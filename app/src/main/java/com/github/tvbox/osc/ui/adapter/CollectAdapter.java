@@ -45,7 +45,7 @@ public class CollectAdapter extends BaseQuickAdapter<VodCollect, BaseViewHolder>
         SourceBean source = ApiConfig.get().getSource(item.sourceKey);
         tvYear.setText(source!=null?source.getName():"");
         
-        ImageView ivThumb = helper.getView(R.id.ivThumb);
+        ImageView videoPoster = helper.getView(R.id.videoPoster);
         //由于部分电视机使用glide报错
         if (!TextUtils.isEmpty(item.pic)) {
             Picasso.get()
@@ -57,9 +57,9 @@ public class CollectAdapter extends BaseQuickAdapter<VodCollect, BaseViewHolder>
                     .placeholder(R.drawable.img_loading_placeholder)
                     .noFade()
                     .error(R.drawable.img_loading_placeholder)
-                    .into(ivThumb);
+                    .into(videoPoster);
         } else {
-            ivThumb.setImageResource(R.drawable.img_loading_placeholder);
+            videoPoster.setImageResource(R.drawable.img_loading_placeholder);
         }
     }
 }

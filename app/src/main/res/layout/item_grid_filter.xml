@@ -13,13 +13,13 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_marginEnd="@dimen/vs_10"
-        android:layout_marginRight="@dimen/vs_10"
+        android:layout_marginEnd="12mm"
+        android:layout_marginRight="12mm"
         android:gravity="center"
         android:textAlignment="gravity"
         android:textColor="@color/color_FFFFFF"
-        android:textSize="@dimen/ts_24"
-        tools:text="11111111111" />
+        android:textSize="20mm"
+        tools:text="排序" />
 
     <com.owen.tvrecyclerview.widget.TvRecyclerView
         android:id="@+id/mFilterKv"
@@ -27,8 +27,8 @@
         android:layout_height="wrap_content"
         android:clipChildren="false"
         android:clipToPadding="false"
-        app:tv_horizontalSpacingWithMargins="@dimen/vs_5"
+        app:tv_horizontalSpacingWithMargins="6mm"
         app:tv_selectedItemIsCentered="true"
-        app:tv_verticalSpacingWithMargins="@dimen/vs_5" />
+        app:tv_verticalSpacingWithMargins="6mm" />
 
 </LinearLayout>

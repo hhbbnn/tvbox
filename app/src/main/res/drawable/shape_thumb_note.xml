@@ -4,5 +4,5 @@
     <!-- 设置半透明背景色 -->
     <solid android:color="#AA000000"/> <!-- AA 代表透明度，这里是 50% 的不透明度 -->
     <!-- 只设置左下角的圆角 -->
-    <corners android:bottomLeftRadius="16dp" />
+    <corners android:radius="6mm" />
 </shape>

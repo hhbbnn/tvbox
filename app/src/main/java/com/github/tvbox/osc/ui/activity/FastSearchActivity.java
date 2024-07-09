@@ -487,7 +487,7 @@ public class FastSearchActivity extends BaseActivity {
             if (searchAdapter.getData().size() > 0) {
                 searchAdapter.addData(data);
             } else {
-                showSuccess();
+                closeLoading();
                 if (!isFilterMode)
                     mGridView.setVisibility(View.VISIBLE);
                 searchAdapter.setNewData(data);

@@ -525,7 +525,7 @@ public class SearchActivity extends BaseActivity {
             if (searchAdapter.getData().size() > 0) {
                 searchAdapter.addData(data);
             } else {
-                showSuccess();
+                closeLoading();
                 mGridView.setVisibility(View.VISIBLE);
                 searchAdapter.setNewData(data);
             }

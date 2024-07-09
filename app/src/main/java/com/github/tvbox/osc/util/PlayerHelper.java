@@ -139,9 +139,8 @@ public class PlayerHelper {
             public void loadLibrary(String s) throws UnsatisfiedLinkError, SecurityException {
                 try {
                     System.loadLibrary(s);
-                } catch (Throwable th) {
-                    LOG.e("异常信息：System.loadLibrary(" + s + ")", th);
-//                    Toast.makeText(PlayerHelper(), "已复制", Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    LOG.e("System.loadLibrary(" + s + ")", e);
                 }
             }
         });

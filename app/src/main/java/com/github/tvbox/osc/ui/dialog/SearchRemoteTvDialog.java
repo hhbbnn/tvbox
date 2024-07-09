@@ -122,7 +122,7 @@ public class SearchRemoteTvDialog extends BaseDialog{
         }
     }
 
-    public void showSuccess() {
+    public void closeLoading() {
         if (null != mLoadService) {
             mLoadService.showSuccess();
         }

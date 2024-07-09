@@ -119,7 +119,7 @@ public class GridFragment extends BaseLazyFragment {
     // 丢弃当前页面，将页面还原成上一个保存的页面
     public boolean restoreView(){
         if(mGrids.empty()) return false;
-        this.showSuccess();
+        this.closeLoading();
         ((ViewGroup) mGridView.getParent()).removeView(this.mGridView); // 重父窗口移除当前控件
         GridInfo info = mGrids.pop();// 还原上次保存的控件
         this.sortData.id = info.sortID;
@@ -254,7 +254,7 @@ public class GridFragment extends BaseLazyFragment {
 //                if(mGridView != null) mGridView.requestFocus();
                 if (absXml != null && absXml.movie != null && absXml.movie.videoList != null && absXml.movie.videoList.size() > 0) {
                     if (page == 1) {
-                        showSuccess();
+                        closeLoading();
                         isLoad = true;
                         gridAdapter.setNewData(absXml.movie.videoList);
                     } else {

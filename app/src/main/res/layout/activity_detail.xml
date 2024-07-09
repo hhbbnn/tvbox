@@ -21,7 +21,7 @@
                 android:paddingBottom="@dimen/vs_10">
 
             <ImageView
-                    android:id="@+id/ivThumb"
+                    android:id="@+id/videoPoster"
                     android:layout_width="220mm"
                     android:layout_height="330mm"
                     android:scaleType="fitXY"/>

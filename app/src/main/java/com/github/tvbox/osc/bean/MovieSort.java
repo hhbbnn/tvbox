@@ -28,6 +28,8 @@ public class MovieSort implements Serializable {
         @XStreamAsAttribute
         public String id;
         public String name;
+        public Integer iconResId;
+
         public int sort = -1;
         public boolean select = false;
         public ArrayList<SortFilter> filters = new ArrayList<>();
@@ -40,6 +42,12 @@ public class MovieSort implements Serializable {
         public SortData(String id, String name) {
             this.id = id;
             this.name = name;
+        }
+
+        public SortData(String id, String name, int iconResId) {
+            this.id = id;
+            this.name = name;
+            this.iconResId = iconResId;
         }
 
         public int filterSelectCount() {

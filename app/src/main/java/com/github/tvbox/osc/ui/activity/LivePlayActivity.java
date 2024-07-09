@@ -1522,7 +1522,7 @@ public class LivePlayActivity extends BaseActivity {
         else {
             liveChannelGroupList.clear();
             liveChannelGroupList.addAll(list);
-            showSuccess();
+            closeLoading();
             initLiveState();
         }
     }
@@ -1564,7 +1564,7 @@ public class LivePlayActivity extends BaseActivity {
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        LivePlayActivity.this.showSuccess();
+                        LivePlayActivity.this.closeLoading();
                         initLiveState();
                     }
                 });

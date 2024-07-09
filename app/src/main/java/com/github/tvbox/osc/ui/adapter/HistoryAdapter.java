@@ -80,7 +80,7 @@ public class HistoryAdapter extends BaseQuickAdapter<VodInfo, BaseViewHolder> {
         }
         helper.setText(R.id.tvName, item.name);
         // helper.setText(R.id.tvActor, item.actor);
-        ImageView ivThumb = helper.getView(R.id.ivThumb);
+        ImageView videoPoster = helper.getView(R.id.videoPoster);
         //由于部分电视机使用glide报错
         if (!TextUtils.isEmpty(item.pic)) {
             Picasso.get()
@@ -92,9 +92,9 @@ public class HistoryAdapter extends BaseQuickAdapter<VodInfo, BaseViewHolder> {
                     .placeholder(R.drawable.img_loading_placeholder)
                     .noFade()
                     .error(R.drawable.img_loading_placeholder)
-                    .into(ivThumb);
+                    .into(videoPoster);
         } else {
-            ivThumb.setImageResource(R.drawable.img_loading_placeholder);
+            videoPoster.setImageResource(R.drawable.img_loading_placeholder);
         }
     }
 }
