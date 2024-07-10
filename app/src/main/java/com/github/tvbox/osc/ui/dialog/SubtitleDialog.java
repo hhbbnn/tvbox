@@ -188,7 +188,7 @@ public class SubtitleDialog extends BaseDialog {
         void openLocalFileChooserDialog();
     }
 
-    public void setSearchSubtitleListener(SearchSubtitleListener searchSubtitleListener) {
+    public void ssearchTextSubtitleListener(SearchSubtitleListener searchSubtitleListener) {
         mSearchSubtitleListener = searchSubtitleListener;
     }
 

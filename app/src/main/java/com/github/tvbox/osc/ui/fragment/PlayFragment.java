@@ -298,7 +298,7 @@ public class PlayFragment extends BaseLazyFragment {
                 setSubtitleViewTextStyle(style);
             }
         });
-        subtitleDialog.setSearchSubtitleListener(new SubtitleDialog.SearchSubtitleListener() {
+        subtitleDialog.ssearchTextSubtitleListener(new SubtitleDialog.SearchSubtitleListener() {
             @Override
             public void openSearchSubtitleDialog() {
                 SearchSubtitleDialog searchSubtitleDialog = new SearchSubtitleDialog(getActivity());
@@ -318,9 +318,9 @@ public class PlayFragment extends BaseLazyFragment {
                     }
                 });
                 if(mVodInfo.playFlag.contains("Ali")||mVodInfo.playFlag.contains("parse")){
-                    searchSubtitleDialog.setSearchWord(mVodInfo.playNote);
+                    searchSubtitleDialog.ssearchTextWord(mVodInfo.playNote);
                 }else {
-                    searchSubtitleDialog.setSearchWord(mVodInfo.name);
+                    searchSubtitleDialog.ssearchTextWord(mVodInfo.name);
                 }
                 searchSubtitleDialog.show();
             }

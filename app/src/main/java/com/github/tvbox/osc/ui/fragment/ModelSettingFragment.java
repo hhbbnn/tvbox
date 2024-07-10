@@ -115,7 +115,7 @@ public class ModelSettingFragment extends BaseLazyFragment {
         tvDns.setText(OkGoHelper.dnsHttpsList.get(Hawk.get(HawkConfig.DOH_URL, 0)));
         tvHomeRec.setText(getHomeRecName(Hawk.get(HawkConfig.HOME_REC, 0)));
         tvHistoryNum.setText(HistoryHelper.getHistoryNumName(Hawk.get(HawkConfig.HISTORY_NUM, 0)));
-        tvSearchView.setText(getSearchView(Hawk.get(HawkConfig.SEARCH_VIEW, 0)));
+        tvSearchView.setText(gsearchTextView(Hawk.get(HawkConfig.SEARCH_VIEW, 0)));
         tvHomeApi.setText(ApiConfig.get().getHomeSourceBean().getName());
         tvScale.setText(PlayerHelper.getScaleName(Hawk.get(HawkConfig.PLAY_SCALE, 0)));
         tvPlay.setText(PlayerHelper.getPlayerName(Hawk.get(HawkConfig.PLAY_TYPE, 0)));
@@ -512,12 +512,12 @@ public class ModelSettingFragment extends BaseLazyFragment {
                     @Override
                     public void click(Integer value, int pos) {
                         Hawk.put(HawkConfig.SEARCH_VIEW, value);
-                        tvSearchView.setText(getSearchView(value));
+                        tvSearchView.setText(gsearchTextView(value));
                     }
 
                     @Override
                     public String getDisplay(Integer val) {
-                        return getSearchView(val);
+                        return gsearchTextView(val);
                     }
                 }, new DiffUtil.ItemCallback<Integer>() {
                     @Override
@@ -706,7 +706,7 @@ public class ModelSettingFragment extends BaseLazyFragment {
         }
     }
 
-    String getSearchView(int type) {
+    String gsearchTextView(int type) {
         if (type == 0) {
             return "文字列表";
         } else {

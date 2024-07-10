@@ -5,25 +5,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/vs_50"
-                android:layout_marginTop="@dimen/vs_10"
-                android:layout_marginBottom="@dimen/vs_10"
-        android:paddingLeft="20mm"
-       >
+        android:layout_marginTop="@dimen/vs_10"
+        android:layout_marginBottom="@dimen/vs_10"
+        android:paddingLeft="20mm">
 
         <TextView
             android:id="@+id/mSearchTitle"
             android:layout_width="@dimen/vs_180"
             android:layout_height="match_parent"
-            android:text="搜索(0/0)"
             android:layout_gravity="center_horizontal"
+            android:paddingTop="@dimen/vs_10"
+            android:text="搜索(0/0)"
             android:textAlignment="center"
             android:textColor="@android:color/white"
-            android:paddingTop="@dimen/vs_10"
-            android:textSize="@dimen/ts_22"  />
+            android:textSize="@dimen/ts_22" />
 
         <com.owen.tvrecyclerview.widget.TvRecyclerView
             android:id="@+id/mGridViewWordFenci"
@@ -68,8 +66,8 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:paddingLeft="20mm"
-            android:paddingBottom="@dimen/vs_20"
-            android:paddingRight="20mm" >
+            android:paddingRight="20mm"
+            android:paddingBottom="@dimen/vs_20">
 
 
             <com.owen.tvrecyclerview.widget.TvRecyclerView
@@ -93,8 +91,6 @@
                 app:tv_horizontalSpacingWithMargins="@dimen/vs_5"
                 app:tv_selectedItemIsCentered="true"
                 app:tv_verticalSpacingWithMargins="@dimen/vs_5" />
-
-
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

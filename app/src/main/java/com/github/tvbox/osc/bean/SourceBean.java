@@ -61,7 +61,7 @@ public class SourceBean {
         return searchable != 0;
     }
 
-    public void setSearchable(int searchable) {
+    public void ssearchTextable(int searchable) {
         this.searchable = searchable;
     }
 

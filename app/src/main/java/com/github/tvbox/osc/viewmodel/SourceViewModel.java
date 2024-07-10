@@ -573,7 +573,7 @@ public class SourceViewModel extends ViewModel {
     }
 
     // searchContent
-    public void getSearch(String sourceKey, String wd) {
+    public void gsearchText(String sourceKey, String wd) {
         SourceBean sourceBean = ApiConfig.get().getSource(sourceKey);
         int type = sourceBean.getType();
         if (type == 3) {

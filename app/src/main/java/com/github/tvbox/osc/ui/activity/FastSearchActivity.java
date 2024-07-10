@@ -65,7 +65,7 @@ public class FastSearchActivity extends BaseActivity {
     private TvRecyclerView mGridViewWord;
     private TvRecyclerView mGridViewWordFenci;
     SourceViewModel sourceViewModel;
-    //    private EditText etSearch;
+    //    private EditText searchText;
 //    private TextView tvSearch;
 //    private TextView tvClear;
 //    private SearchKeyboard keyboard;
@@ -422,7 +422,7 @@ public class FastSearchActivity extends BaseActivity {
                 @Override
                 public void run() {
                     try {
-                        sourceViewModel.getSearch(key, searchTitle);
+                        sourceViewModel.gsearchText(key, searchTitle);
                     } catch (Exception e) {
 
                     }

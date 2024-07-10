@@ -41,15 +41,15 @@ public class SubtitleViewModel extends ViewModel {
         searchResultFromAssrt(title, page);
     }
 
-    public void getSearchResultSubtitleUrls(Subtitle subtitle) {
-        getSearchResultSubtitleUrlsFromAssrt(subtitle);
+    public void gsearchTextResultSubtitleUrls(Subtitle subtitle) {
+        gsearchTextResultSubtitleUrlsFromAssrt(subtitle);
     }
 
     public void getSubtitleUrl(Subtitle subtitle, SearchSubtitleDialog.SubtitleLoader subtitleLoader) {
         getSubtitleUrlFromAssrt(subtitle, subtitleLoader);
     }
 
-    private void setSearchListData(List<Subtitle> data, boolean isNew, boolean isZip) {
+    private void ssearchTextListData(List<Subtitle> data, boolean isNew, boolean isZip) {
         try {
             SubtitleData subtitleData = new SubtitleData();
             subtitleData.setSubtitleList(data);
@@ -67,7 +67,7 @@ public class SubtitleViewModel extends ViewModel {
     private void searchResultFromAssrt(String title, int page) {
         try {
             if (pagesTotal > 0 && page > pagesTotal) {
-                setSearchListData(new ArrayList<>(), page <= 1, true);
+                ssearchTextListData(new ArrayList<>(), page <= 1, true);
                 return;
             }
             if (page == 1) pagesTotal = -1;//第一页时 重置页大小
@@ -95,7 +95,7 @@ public class SubtitleViewModel extends ViewModel {
                                     one.setIsZip(true);
                                     data.add(one);
                                 }
-                                setSearchListData(data, page <= 1, true);
+                                ssearchTextListData(data, page <= 1, true);
                                 Elements pages = doc.select(".pagelinkcard a");
                                 if (pages.size() > 0) {
                                     String[] ps = pages.last().text().split("/", 2);
@@ -116,7 +116,7 @@ public class SubtitleViewModel extends ViewModel {
                         @Override
                         public void onError(com.lzy.okgo.model.Response<String> response) {
                             super.onError(response);
-                            setSearchListData(null, page <= 1, true);
+                            ssearchTextListData(null, page <= 1, true);
                         }
                     });
         } catch (Exception e) {
@@ -126,7 +126,7 @@ public class SubtitleViewModel extends ViewModel {
 
     Pattern regexShooterFileOnclick = Pattern.compile("onthefly\\(\"(\\d+)\",\"(\\d+)\",\"([\\s\\S]*)\"\\)");
 
-    private void getSearchResultSubtitleUrlsFromAssrt(Subtitle subtitle) {
+    private void gsearchTextResultSubtitleUrlsFromAssrt(Subtitle subtitle) {
         try {
             String url = subtitle.getUrl();
             OkGo.<String>get(url).execute(new AbsCallback<String>() {
@@ -152,11 +152,11 @@ public class SubtitleViewModel extends ViewModel {
                                     data.add(one);
                                 }
                             }
-                            setSearchListData(data, true, false);
+                            ssearchTextListData(data, true, false);
                         } else {//有的字幕 不一定是压缩包
                             Element item = doc.selectFirst(".download a#btn_download");
                             String href = item.attr("href");
-                            if (TextUtils.isEmpty(href)) setSearchListData(null, true, false);
+                            if (TextUtils.isEmpty(href)) ssearchTextListData(null, true, false);
                             String h2 = href.toLowerCase();
                             if (h2.endsWith("srt") || h2.endsWith("ass") || h2.endsWith("scc") || h2.endsWith("ttml")) {
                                 String url = "https://assrt.net" + href;
@@ -166,9 +166,9 @@ public class SubtitleViewModel extends ViewModel {
                                 one.setUrl(url);
                                 one.setIsZip(false);
                                 data.add(one);
-                                setSearchListData(data, true, false);
+                                ssearchTextListData(data, true, false);
                             } else {
-                                setSearchListData(null, true, false);
+                                ssearchTextListData(null, true, false);
                             }
                         }
                     } catch (Throwable th) {
@@ -184,7 +184,7 @@ public class SubtitleViewModel extends ViewModel {
                 @Override
                 public void onError(com.lzy.okgo.model.Response<String> response) {
                     super.onError(response);
-                    setSearchListData(null, true, true);
+                    ssearchTextListData(null, true, true);
                 }
             });
         } catch (Exception e) {

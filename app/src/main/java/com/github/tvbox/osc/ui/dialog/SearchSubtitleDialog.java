@@ -80,7 +80,7 @@ public class SearchSubtitleDialog extends BaseDialog {
                         isSearchPag = false;
                         loadingBar.setVisibility(View.VISIBLE);
                         mGridView.setVisibility(View.GONE);
-                        subtitleViewModel.getSearchResultSubtitleUrls(subtitle);
+                        subtitleViewModel.gsearchTextResultSubtitleUrls(subtitle);
                     } else {
                         loadSubtitle(subtitle);
                         dismiss();
@@ -109,7 +109,7 @@ public class SearchSubtitleDialog extends BaseDialog {
         searchAdapter.setNewData(new ArrayList<>());
     }
 
-    public void setSearchWord(String wd) {
+    public void ssearchTextWord(String wd) {
         wd = wd.replaceAll("(?:（|\\(|\\[|【|\\.mp4|\\.mkv|\\.avi|\\.MP4|\\.MKV|\\.AVI)", "");
         wd = wd.replaceAll("(?:：|\\:|）|\\)|\\]|】|\\.)", " ");
         int len = wd.length();

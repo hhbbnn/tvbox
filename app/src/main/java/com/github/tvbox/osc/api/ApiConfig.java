@@ -348,7 +348,7 @@ public class ApiConfig {
             sb.setName(obj.get("name").getAsString().trim());
             sb.setType(obj.get("type").getAsInt());
             sb.setApi(obj.get("api").getAsString().trim());
-            sb.setSearchable(DefaultConfig.safeJsonInt(obj, "searchable", 1));
+            sb.ssearchTextable(DefaultConfig.safeJsonInt(obj, "searchable", 1));
             sb.setQuickSearch(DefaultConfig.safeJsonInt(obj, "quickSearch", 1));
             sb.setFilterable(DefaultConfig.safeJsonInt(obj, "filterable", 1));
             sb.setPlayerUrl(DefaultConfig.safeJsonString(obj, "playUrl", ""));

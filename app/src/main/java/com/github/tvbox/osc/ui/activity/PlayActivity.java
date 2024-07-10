@@ -279,7 +279,7 @@ public class PlayActivity extends BaseActivity {
                 setSubtitleViewTextStyle(style);
             }
         });
-        subtitleDialog.setSearchSubtitleListener(new SubtitleDialog.SearchSubtitleListener() {
+        subtitleDialog.ssearchTextSubtitleListener(new SubtitleDialog.SearchSubtitleListener() {
             @Override
             public void openSearchSubtitleDialog() {
                 SearchSubtitleDialog searchSubtitleDialog = new SearchSubtitleDialog(PlayActivity.this);
@@ -300,9 +300,9 @@ public class PlayActivity extends BaseActivity {
                     }
                 });
                 if(mVodInfo.playFlag.contains("Ali")||mVodInfo.playFlag.contains("parse")){
-                    searchSubtitleDialog.setSearchWord(mVodInfo.playNote);
+                    searchSubtitleDialog.ssearchTextWord(mVodInfo.playNote);
                 }else {
-                    searchSubtitleDialog.setSearchWord(mVodInfo.name);
+                    searchSubtitleDialog.ssearchTextWord(mVodInfo.name);
                 }
                 searchSubtitleDialog.show();
             }
