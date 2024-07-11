@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="50mm"
     android:layout_gravity="center"
-    android:layout_margin="@dimen/vs_4"
+    android:layout_margin="2mm"
     android:background="@drawable/search_key_focus"
     android:focusable="true">
 
@@ -16,5 +16,5 @@
         android:gravity="center"
         android:textAlignment="gravity"
         android:textColor="@android:color/white"
-        android:textSize="24mm" />
+        android:textSize="26mm" />
 </FrameLayout>

@@ -1,6 +1,7 @@
 package com.github.tvbox.osc.ui.animate;
 
 import android.animation.Animator;
+import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
@@ -8,7 +9,16 @@ import android.view.animation.LinearInterpolator;
 public class ViewAnimate {
 
     /**
-     * 列表影视项聚焦动画
+     * 热搜词条项-聚焦动画
+     *
+     * @param view
+     */
+    public static void animateSearchHotKeyFocus(View view) {
+        floatToRight(view, 12, 150);
+    }
+
+    /**
+     * 影视列表项-聚焦动画
      *
      * @param view
      */
@@ -84,5 +94,32 @@ public class ViewAnimate {
             public void onAnimationRepeat(Animator animation) {
             }
         });
+    }
+
+    /**
+     * 向右浮动的动画
+     *
+     * @param view
+     * @param distanceMM 向右浮动的距离
+     * @param duration   动画持续时间-毫秒
+     */
+    public static void floatToRight(View view, int distanceMM, int duration) {
+        // 获取View的初始X坐标
+        float startTranslationX = view.getTranslationX();
+
+        // 创建向右浮动的动画
+        ObjectAnimator moveRight = ObjectAnimator.ofFloat(view, "translationX", startTranslationX + distanceMM);
+        moveRight.setDuration(duration); // 动画持续时间为0.5秒，即500毫秒
+
+        // 创建返回原位的动画
+        ObjectAnimator moveBack = ObjectAnimator.ofFloat(view, "translationX", startTranslationX);
+        moveBack.setDuration(duration);
+
+        // 使用AnimatorSet顺序执行动画
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playSequentially(moveRight, moveBack);
+
+        // 开始动画
+        animatorSet.start();
     }
 }

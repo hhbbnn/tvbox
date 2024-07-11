@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
-    android:alpha=".6"
-    android:background="@drawable/shape_user_focus"
+    android:alpha=".7"
     android:ellipsize="marquee"
     android:focusable="true"
     android:marqueeRepeatLimit="marquee_forever"
@@ -14,4 +13,4 @@
     android:singleLine="true"
     android:text="轩辕剑"
     android:textColor="@color/color_FFFFFF"
-    android:textSize="@dimen/ts_22" />
+    android:textSize="22mm" />

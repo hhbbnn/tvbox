@@ -22,9 +22,7 @@
                 android:id="@+id/searchText"
                 android:layout_width="50mm"
                 android:layout_height="50mm"
-                android:layout_marginStart="@dimen/vs_10"
-                android:layout_marginEnd="@dimen/vs_10"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:background="@drawable/search_input"
                 android:hint="输入首字母或全拼"
                 android:imeOptions="actionDone"
@@ -36,17 +34,19 @@
                 android:textColorHint="#99FFFFFF"
                 android:textSize="@dimen/ts_20" />
 
-            <TextView
+            <ImageView
                 android:id="@+id/tvSearch"
-                android:layout_width="100mm"
+                android:layout_width="50mm"
                 android:layout_height="50mm"
+                android:layout_marginLeft="12mm"
+                android:alpha="0.7"
+                android:background="@drawable/search_menu_focus"
                 android:focusable="true"
                 android:gravity="center"
                 android:paddingLeft="12mm"
                 android:paddingRight="12mm"
-                android:text="搜索"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/ts_20" />
+                android:src="@drawable/icon_search"
+                android:textColor="@android:color/white" />
         </LinearLayout>
 
         <LinearLayout
@@ -98,7 +98,7 @@
         <com.github.tvbox.osc.ui.tv.widget.SearchKeyboard
             android:id="@+id/keyBoardRoot"
             android:layout_width="match_parent"
-            android:layout_height="380mm"
+            android:layout_height="370mm"
             android:layout_marginTop="24mm" />
 
         <LinearLayout
@@ -109,24 +109,22 @@
                 android:id="@+id/tvSearchCheckboxBtn"
                 android:layout_width="0mm"
                 android:layout_height="@dimen/vs_50"
-                android:layout_marginRight="6mm"
                 android:layout_weight="1"
                 android:alpha=".7"
-                android:background="@drawable/search_menu_focus"
+                android:background="@drawable/search_menu_other_left_focus"
                 android:focusable="true"
                 android:gravity="center"
                 android:text="搜索源"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/ts_20" />/>
+                android:textSize="@dimen/ts_20" />
 
             <TextView
                 android:id="@+id/remoteSearch"
                 android:layout_width="0mm"
                 android:layout_height="@dimen/vs_50"
-                android:layout_marginLeft="6mm"
                 android:layout_weight="1"
                 android:alpha=".7"
-                android:background="@drawable/search_menu_focus"
+                android:background="@drawable/search_menu_other_right_focus"
                 android:focusable="true"
                 android:gravity="center"
                 android:text="远程输入"
@@ -185,7 +183,7 @@
             android:layout_marginBottom="@dimen/vs_10"
             android:text="热门搜索"
             android:textColor="@android:color/white"
-            android:textSize="28mm" />
+            android:textSize="26mm" />
 
         <com.owen.tvrecyclerview.widget.TvRecyclerView
             android:id="@+id/mGridViewWord"

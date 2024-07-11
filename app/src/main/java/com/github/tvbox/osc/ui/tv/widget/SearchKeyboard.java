@@ -118,7 +118,7 @@ public class SearchKeyboard extends FrameLayout {
 
         private KeyboardAdapter(List<Keyboard> data) {
             super(data);
-            addItemType(1, R.layout.item_search_keyboard);
+            addItemType(1, R.layout.activity_search_keyboard);
         }
 
         @Override
