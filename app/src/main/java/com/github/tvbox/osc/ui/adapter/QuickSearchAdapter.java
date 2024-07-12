@@ -39,7 +39,7 @@ public class QuickSearchAdapter extends BaseQuickAdapter<Movie.Video, BaseViewHo
                             .override(AutoSizeUtils.mm2px(mContext, 300), AutoSizeUtils.mm2px(mContext, 400))
                             .roundRadius(AutoSizeUtils.mm2px(mContext, 10), RoundTransformation.RoundType.ALL))
                     .placeholder(R.drawable.error_loading)
-                    .error(R.drawable.error_loading)
+                    .error(R.drawable.jpg_vertical_404)
                     .into(videoPoster);
         } else {
             videoPoster.setImageResource(R.drawable.error_loading);

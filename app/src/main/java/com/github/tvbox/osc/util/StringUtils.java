@@ -1,59 +1,53 @@
 package com.github.tvbox.osc.util;
 
 
-import java.lang.reflect.Array;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class StringUtils {
 
-    public static boolean isEmpty( CharSequence str) {
-        return str == null || str.length() == 0;
+    /**
+     * 去除字符串中的所有符号和特殊符号，并替换成空格
+     *
+     * @param input 原始字符串
+     * @return 处理后的字符串
+     */
+    public static String replaceSymbolsWithSpace(String input) {
+        // 正则表达式，匹配除字母、数字和中文以外的所有字符
+        Pattern pattern = Pattern.compile("[^a-zA-Z0-9\\u4e00-\\u9fa5]");
+        Matcher matcher = pattern.matcher(input);
+        // 使用replaceAll方法替换匹配到的字符为一个空格
+        return matcher.replaceAll(" ").trim();
     }
 
-    public static boolean isNotEmpty( CharSequence str) {
-        return !isEmpty(str);
+    /**
+     * 去除字符串中的所有符号和特殊符号，并替换成·
+     *
+     * @param input 原始字符串
+     * @return 处理后的字符串
+     */
+    public static String replaceSymbolsWithPoint(String input) {
+        // 正则表达式，匹配除字母、数字和中文以外的所有字符
+        Pattern pattern = Pattern.compile("[^a-zA-Z0-9\\u4e00-\\u9fa5]");
+        Matcher matcher = pattern.matcher(input);
+        // 使用replaceAll方法替换匹配到的字符为一个空格
+        return matcher.replaceAll(" ").trim().replaceAll(" ", "·");
     }
 
-    public static boolean isNull(Object obj) {
-        return obj == null;
-    }
-
-    public static boolean isNotNull(Object obj) {
-        return !isNull(obj);
-    }
-
-    public static boolean isEmpty(Object obj) {
-        if (obj == null) return true;
-        else if (obj instanceof CharSequence) return ((CharSequence) obj).length() == 0;
-        else if (obj instanceof Collection) return ((Collection) obj).isEmpty();
-        else if (obj instanceof Map) return ((Map) obj).isEmpty();
-        else if (obj.getClass().isArray()) return Array.getLength(obj) == 0;
-
-        return false;
-    }
-
-    public static boolean isNotEmpty(Object obj) {
-        return !isEmpty(obj);
-    }
-
-    private static final String U2028 = new String(new byte[]{ (byte)0xE2, (byte)0x80, (byte)0xA8 });
-    private static final String U2029 = new String(new byte[]{ (byte)0xE2, (byte)0x80, (byte)0xA9 });
+    private static final String U2028 = new String(new byte[]{(byte) 0xE2, (byte) 0x80, (byte) 0xA8});
+    private static final String U2029 = new String(new byte[]{(byte) 0xE2, (byte) 0x80, (byte) 0xA9});
 
     /**
      * Escape JavaString string
+     *
      * @param line unescaped string
      * @return escaped string
      */
-    public static String escapeJavaScriptString(final String line)
-    {
+    public static String escapeJavaScriptString(final String line) {
         final StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < line.length(); i++)
-        {
+        for (int i = 0; i < line.length(); i++) {
             char c = line.charAt(i);
-            switch (c)
-            {
+            switch (c) {
                 case '"':
                 case '\'':
                 case '\\':
@@ -80,9 +74,10 @@ public class StringUtils {
     }
 
     public static String getBaseUrl(String url) {
-        if (isEmpty(url)) {
+        if (org.apache.commons.lang3.StringUtils.isBlank(url)) {
             return url;
         }
+
         String baseUrls = url.replace("http://", "").replace("https://", "");
         String baseUrl2 = baseUrls.split("/")[0];
         String baseUrl;
@@ -92,128 +87,5 @@ public class StringUtils {
             baseUrl = "http://" + baseUrl2;
         }
         return baseUrl;
-    }
-
-
-    public static String arrayToString(String[] list, int fromIndex, String cha) {
-        return arrayToString(list, fromIndex, list == null ? 0 : list.length, cha);
-    }
-
-    public static String arrayToString(String[] list, int fromIndex, int endIndex, String cha) {
-        StringBuilder builder = new StringBuilder();
-        if (list == null || list.length <= fromIndex) {
-            return "";
-        } else if (list.length <= 1) {
-            return list[0];
-        } else {
-            builder.append(list[fromIndex]);
-        }
-        for (int i = 1 + fromIndex; i < list.length && i < endIndex; i++) {
-            builder.append(cha).append(list[i]);
-        }
-        return builder.toString();
-    }
-
-    public static String listToString(List<String> list, String cha) {
-        StringBuilder builder = new StringBuilder();
-        if (list == null || list.size() <= 0) {
-            return "";
-        } else if (list.size() <= 1) {
-            return list.get(0);
-        } else {
-            builder.append(list.get(0));
-        }
-        for (int i = 1; i < list.size(); i++) {
-            builder.append(cha).append(list.get(i));
-        }
-        return builder.toString();
-    }
-
-    public static String listToString(List<String> list, int fromIndex, String cha) {
-        StringBuilder builder = new StringBuilder();
-        if (list == null || list.size() <= fromIndex) {
-            return "";
-        } else if (list.size() <= 1) {
-            return list.get(0);
-        } else {
-            builder.append(list.get(fromIndex));
-        }
-        for (int i = fromIndex + 1; i < list.size(); i++) {
-            builder.append(cha).append(list.get(i));
-        }
-        return builder.toString();
-    }
-
-    public static String listToString(List<String> list) {
-        return listToString(list, "&&");
-    }
-
-    public static boolean isBlank(String text) {
-        return trim(text).length() == 0;
-    }
-
-    public static String trimBlanks(String str) {
-        if (str == null || str.length() == 0) {
-            return str;
-        }
-        int len = str.length();
-        int st = 0;
-
-        while ((st < len) && (str.charAt(st) == '\n' || str.charAt(st) == '\r' || str.charAt(st) == '\f' || str.charAt(st) == '\t')) {
-            st++;
-        }
-        while ((st < len) && (str.charAt(len - 1) == '\n' || str.charAt(len - 1) == '\r' || str.charAt(len - 1) == '\f' || str.charAt(len - 1) == '\t')) {
-            len--;
-        }
-        return ((st > 0) || (len < str.length())) ? str.substring(st, len) : str;
-    }
-
-    public static String trim(String string) {
-        if (string == null || string.length() == 0 || " ".equals(string)) return "";
-        int start = 0, len = string.length();
-        int end = len - 1;
-        while ((start < end) && ((string.charAt(start) <= ' ') || (string.charAt(start) == '　'))) {
-            ++start;
-        }
-        while ((start < end) && ((string.charAt(end) <= ' ') || (string.charAt(end) == '　'))) {
-            --end;
-        }
-        if (end < len) ++end;
-        return ((start > 0) || (end < len)) ? string.substring(start, end) : string;
-    }
-
-    public static boolean isJsonType(String text) {
-        boolean result = false;
-        if (isNotEmpty(text)) {
-            text = trim(text);
-            if (text.startsWith("{") && text.endsWith("}")) {
-                result = true;
-            } else if (text.startsWith("[") && text.endsWith("]")) {
-                result = true;
-            }
-        }
-        return result;
-    }
-
-    public static boolean isJsonObject(String text) {
-        boolean result = false;
-        if (isNotEmpty(text)) {
-            text = trim(text);
-            if (text.startsWith("{") && text.endsWith("}")) {
-                result = true;
-            }
-        }
-        return result;
-    }
-
-    public static boolean isJsonArray(String text) {
-        boolean result = false;
-        if (isNotEmpty(text)) {
-            text = trim(text);
-            if (text.startsWith("[") && text.endsWith("]")) {
-                result = true;
-            }
-        }
-        return result;
     }
 }

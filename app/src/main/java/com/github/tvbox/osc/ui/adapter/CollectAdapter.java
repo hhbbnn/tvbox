@@ -54,12 +54,12 @@ public class CollectAdapter extends BaseQuickAdapter<VodCollect, BaseViewHolder>
                             .centerCorp(true)
                             .override(AutoSizeUtils.mm2px(mContext, 300), AutoSizeUtils.mm2px(mContext, 400))
                             .roundRadius(AutoSizeUtils.mm2px(mContext, 10), RoundTransformation.RoundType.ALL))
-                    .placeholder(R.drawable.img_loading_placeholder)
+                    .placeholder(R.drawable.jpg_vertical_default)
                     .noFade()
-                    .error(R.drawable.img_loading_placeholder)
+                    .error(R.drawable.jpg_vertical_404)
                     .into(videoPoster);
         } else {
-            videoPoster.setImageResource(R.drawable.img_loading_placeholder);
+            videoPoster.setImageResource(R.drawable.jpg_vertical_default);
         }
     }
 }

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:focusable="true">
+
+    <FrameLayout
+        android:id="@+id/videoItemFrame"
+        android:layout_width="220mm"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12mm">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/videoPosterBox"
+                android:layout_width="match_parent"
+                android:layout_height="330mm"
+                android:background="@drawable/home_video_focus"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+                <!--        海报-->
+                <ImageView
+                    android:id="@+id/videoPoster"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="4mm"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop" />
+            </LinearLayout>
+            <!--名称-->
+            <TextView
+                android:id="@+id/videoName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6mm"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:paddingLeft="4mm"
+                android:singleLine="true"
+                android:text="绝命毒师"
+                android:textColor="@android:color/white"
+                android:textSize="22mm" />
+            <!--            备注-->
+            <TextView
+                android:id="@+id/videoRemark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:alpha="0.6"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:paddingLeft="4mm"
+                android:singleLine="true"
+                android:text="豆瓣热播"
+                android:textColor="@android:color/white"
+                android:textSize="20mm" />
+        </LinearLayout>
+
+        <!--悬浮标签-->
+        <TextView
+            android:id="@+id/videoTag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|right"
+            android:layout_marginTop="9mm"
+            android:layout_marginRight="9mm"
+            android:background="@drawable/shape_thumb_note"
+            android:ellipsize="end"
+            android:paddingLeft="12mm"
+            android:paddingRight="12mm"
+            android:singleLine="true"
+            android:text="6.1"
+            android:textColor="@android:color/white"
+            android:textSize="20mm" />
+    </FrameLayout>
+</FrameLayout>

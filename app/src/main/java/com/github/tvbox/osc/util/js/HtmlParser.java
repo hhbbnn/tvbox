@@ -2,8 +2,7 @@ package com.github.tvbox.osc.util.js;
 
 import android.text.TextUtils;
 
-import com.github.tvbox.osc.util.StringUtils;
-
+import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -14,9 +13,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -191,7 +187,7 @@ public class HtmlParser {
             }
         }
         String result;
-        if (StringUtils.isNotEmpty(option)) {
+        if (StringUtils.isNotBlank(option)) {
             if (option.equals("Text")) {
                 result = ret.text();
             } else if (option.equals("Html")) {
@@ -261,7 +257,7 @@ public class HtmlParser {
         }
 
         if (nparse.contains(":eq")) {
-            if(painfo.nparse_index < 0){
+            if (painfo.nparse_index < 0) {
                 ret = ret.eq(ret.size() + painfo.nparse_index);
             } else {
                 ret = ret.eq(painfo.nparse_index);
@@ -276,7 +272,7 @@ public class HtmlParser {
         }
         return ret;
     }
-    
+
     public static List<String> parseDomForList(String html, String p1, String list_text, String list_url, String add_url) {
         if (!pdfa_html.equals(html)) {
             pdfa_html = html;
@@ -293,7 +289,7 @@ public class HtmlParser {
             }
         }
         List<String> new_vod_list = new ArrayList<>();
-        for(Element it : ret){
+        for (Element it : ret) {
             new_vod_list.add(parseDomForUrl(it.outerHtml(), list_text, "").trim() + '$' + parseDomForUrl(it.outerHtml(), list_url, add_url));
         }
         return new_vod_list;

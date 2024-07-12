@@ -190,7 +190,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         SourceBean home = ApiConfig.get().getHomeSourceBean();
         // 设置Logo名称
         if (!StringUtils.isBlank(home.getName())) {
-            tvName.setText(home.getName());
+            tvName.setText(com.github.tvbox.osc.util.StringUtils.replaceSymbolsWithPoint(home.getName()));
         }
     }
 

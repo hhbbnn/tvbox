@@ -5,18 +5,17 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.github.tvbox.osc.R;
 import com.github.tvbox.osc.api.ApiConfig;
 import com.github.tvbox.osc.bean.Movie;
-import com.github.tvbox.osc.picasso.RoundTransformation;
 import com.github.tvbox.osc.util.DefaultConfig;
 import com.github.tvbox.osc.util.HawkConfig;
-import com.github.tvbox.osc.util.MD5;
+import com.github.tvbox.osc.util.VideoUtils;
 import com.orhanobut.hawk.Hawk;
 import com.squareup.picasso.Picasso;
-import me.jessyan.autosize.utils.AutoSizeUtils;
 
 import java.util.ArrayList;
 
@@ -27,6 +26,9 @@ public class HomeHotVideoAdapter extends BaseQuickAdapter<Movie.Video, BaseViewH
 
     @Override
     protected void convert(BaseViewHolder helper, Movie.Video item) {
+
+        VideoUtils.reSizeVideoItemFrame(helper, mContext, 220, 330);
+
         // takagen99: Add Delete Mode
         FrameLayout tvDel = helper.getView(R.id.delFrameLayout);
         if (HawkConfig.hotVodDelete) {
@@ -60,12 +62,12 @@ public class HomeHotVideoAdapter extends BaseQuickAdapter<Movie.Video, BaseViewH
 //            System.out.println(item.pic);
             Picasso.get()
                     .load(DefaultConfig.checkReplaceProxy(item.pic))
-                    .placeholder(R.drawable.default_poster)
+                    .placeholder(R.drawable.jpg_vertical_default)
                     .noFade()
-                    .error(R.drawable.default_poster_fail)
+                    .error(R.drawable.jpg_vertical_404)
                     .into(videoPoster);
         } else {
-            videoPoster.setImageResource(R.drawable.default_poster);
+            videoPoster.setImageResource(R.drawable.jpg_vertical_default);
         }
     }
 }

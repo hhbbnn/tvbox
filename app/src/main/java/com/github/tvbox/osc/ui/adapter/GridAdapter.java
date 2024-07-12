@@ -47,12 +47,12 @@ public class GridAdapter extends BaseQuickAdapter<Movie.Video, BaseViewHolder> {
                                 .centerCorp(true)
                                 .override(AutoSizeUtils.mm2px(mContext, 240), AutoSizeUtils.mm2px(mContext, 320))
                                 .roundRadius(AutoSizeUtils.mm2px(mContext, 10), RoundTransformation.RoundType.ALL))
-                        .placeholder(R.drawable.img_loading_placeholder)
+                        .placeholder(R.drawable.jpg_vertical_default)
                         .noFade()
-//                        .error(R.drawable.img_loading_placeholder)
+//                        .error(R.drawable.jpg_vertical_404)
                         .into(videoPoster);
             } else {
-                videoPoster.setImageResource(R.drawable.img_loading_placeholder);
+                videoPoster.setImageResource(R.drawable.jpg_vertical_default);
             }
             return;
         }
@@ -98,12 +98,12 @@ public class GridAdapter extends BaseQuickAdapter<Movie.Video, BaseViewHolder> {
                             .centerCorp(true)
                             .override(AutoSizeUtils.mm2px(mContext, 240), AutoSizeUtils.mm2px(mContext, 320))
                             .roundRadius(AutoSizeUtils.mm2px(mContext, 10), RoundTransformation.RoundType.ALL))
-                    .placeholder(R.drawable.img_loading_placeholder)
+                    .placeholder(R.drawable.jpg_vertical_default)
                     .noFade()
-//                    .error(R.drawable.img_loading_placeholder)
+//                    .error(R.drawable.jpg_vertical_404)
                     .into(videoPoster);
         } else {
-            videoPoster.setImageResource(R.drawable.img_loading_placeholder);
+            videoPoster.setImageResource(R.drawable.jpg_vertical_default);
         }
     }
 }
