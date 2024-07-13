@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:focusable="true">
 
+    <!--    列表项-->
     <FrameLayout
         android:id="@+id/videoItemFrame"
         android:layout_width="220mm"
@@ -76,5 +77,24 @@
             android:text="6.1"
             android:textColor="@android:color/white"
             android:textSize="20mm" />
+    </FrameLayout>
+
+    <!--    历史记录-删除-->
+    <FrameLayout
+        android:id="@+id/delFrameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginBottom="40mm"
+        android:background="@drawable/shape_history_delete"
+        android:padding="24mm"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="60mm"
+            android:layout_height="60mm"
+            android:layout_gravity="center"
+            android:src="@drawable/icon_delete" />
     </FrameLayout>
 </FrameLayout>

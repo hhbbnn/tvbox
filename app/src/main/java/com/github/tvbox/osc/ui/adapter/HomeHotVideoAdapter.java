@@ -2,14 +2,12 @@ package com.github.tvbox.osc.ui.adapter;
 
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.github.tvbox.osc.R;
-import com.github.tvbox.osc.api.ApiConfig;
 import com.github.tvbox.osc.bean.Movie;
 import com.github.tvbox.osc.constans.SystemConstants;
 import com.github.tvbox.osc.util.DefaultConfig;
@@ -27,16 +25,7 @@ public class HomeHotVideoAdapter extends BaseQuickAdapter<Movie.Video, BaseViewH
 
     @Override
     protected void convert(BaseViewHolder helper, Movie.Video item) {
-
         VideoUtils.reSizeVideoItemFrame(helper, mContext, 220, 330);
-
-        // takagen99: Add Delete Mode
-        FrameLayout tvDel = helper.getView(R.id.delFrameLayout);
-        if (HawkConfig.hotVodDelete) {
-            tvDel.setVisibility(View.VISIBLE);
-        } else {
-            tvDel.setVisibility(View.GONE);
-        }
 
         TextView tvRate = helper.getView(R.id.tvRate);
         if (Hawk.get(HawkConfig.HOME_REC, 0) == SystemConstants.Setting.HomeRecType.DOUBAN.getCode()) {

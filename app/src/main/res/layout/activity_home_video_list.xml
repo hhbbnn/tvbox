@@ -76,25 +76,5 @@
             android:text="6.1"
             android:textColor="@android:color/white"
             android:textSize="20mm" />
-
-        <!--        历史观看-删除-->
-        <FrameLayout
-            android:id="@+id/delFrameLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:background="@drawable/shape_user_delete"
-            android:visibility="gone">
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="@dimen/vs_80"
-                android:layout_height="@dimen/vs_80"
-                android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/vs_20"
-                android:src="@drawable/icon_delete" />
-
-        </FrameLayout>
-
     </FrameLayout>
 </FrameLayout>

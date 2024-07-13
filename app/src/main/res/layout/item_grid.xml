@@ -129,7 +129,7 @@
             android:id="@+id/delFrameLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/shape_user_delete"
+            android:background="@drawable/shape_history_delete"
             android:layout_gravity="center"
             android:visibility="gone">
 

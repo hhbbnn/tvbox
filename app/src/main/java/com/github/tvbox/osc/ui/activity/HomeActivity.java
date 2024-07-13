@@ -402,37 +402,30 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onBackPressed() {
-
-        // takagen99: Add check for VOD Delete Mode
-        if (HawkConfig.hotVodDelete) {
-            HawkConfig.hotVodDelete = false;
-            UserFragment.homeHotVodAdapter.notifyDataSetChanged();
-        } else {
-            int i;
-            if (this.fragments.size() <= 0 || this.menuFocused >= this.fragments.size() || (i = this.menuFocused) < 0) {
-                exit();
+        int i;
+        if (this.fragments.size() <= 0 || this.menuFocused >= this.fragments.size() || (i = this.menuFocused) < 0) {
+            exit();
+            return;
+        }
+        BaseLazyFragment baseLazyFragment = this.fragments.get(i);
+        if (baseLazyFragment instanceof GridFragment) {
+            View view = this.menuFocusView;
+            GridFragment grid = (GridFragment) baseLazyFragment;
+            if (grid.restoreView()) {
                 return;
-            }
-            BaseLazyFragment baseLazyFragment = this.fragments.get(i);
-            if (baseLazyFragment instanceof GridFragment) {
-                View view = this.menuFocusView;
-                GridFragment grid = (GridFragment) baseLazyFragment;
-                if (grid.restoreView()) {
-                    return;
-                }// 还原上次保存的UI内容
-                if (view != null && !view.isFocused()) {
-                    this.menuFocusView.requestFocus();
-                } else if (this.menuFocused != 2) {
-                    this.menuView.setSelection(2);
-                } else {
-                    exit();
-                }
-            } else if (baseLazyFragment instanceof UserFragment && UserFragment.videoHotList.canScrollVertically(-1)) {
-                UserFragment.videoHotList.scrollToPosition(2);
+            }// 还原上次保存的UI内容
+            if (view != null && !view.isFocused()) {
+                this.menuFocusView.requestFocus();
+            } else if (this.menuFocused != 2) {
                 this.menuView.setSelection(2);
             } else {
                 exit();
             }
+        } else if (baseLazyFragment instanceof UserFragment && UserFragment.videoHotList.canScrollVertically(-1)) {
+            UserFragment.videoHotList.scrollToPosition(2);
+            this.menuView.setSelection(2);
+        } else {
+            exit();
         }
     }
 
@@ -579,10 +572,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-
-        // takagen99: Remove Delete Mode
-        HawkConfig.hotVodDelete = false;
-
         FastClickCheckUtil.check(v);
 
         if (v.getId() == R.id.tvLive) {
