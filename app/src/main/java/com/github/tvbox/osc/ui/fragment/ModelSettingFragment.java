@@ -16,7 +16,6 @@ import com.github.tvbox.osc.base.BaseActivity;
 import com.github.tvbox.osc.base.BaseLazyFragment;
 import com.github.tvbox.osc.bean.IJKCode;
 import com.github.tvbox.osc.bean.SourceBean;
-import com.github.tvbox.osc.constans.SystemConstants;
 import com.github.tvbox.osc.event.RefreshEvent;
 import com.github.tvbox.osc.player.thirdparty.RemoteTVBox;
 import com.github.tvbox.osc.ui.activity.HomeActivity;
@@ -31,7 +30,6 @@ import com.github.tvbox.osc.ui.dialog.XWalkInitDialog;
 import com.github.tvbox.osc.util.FastClickCheckUtil;
 import com.github.tvbox.osc.util.FileUtils;
 import com.github.tvbox.osc.util.HawkConfig;
-import com.github.tvbox.osc.util.HistoryHelper;
 import com.github.tvbox.osc.util.OkGoHelper;
 import com.github.tvbox.osc.util.PlayerHelper;
 import com.lzy.okgo.OkGo;
@@ -66,11 +64,8 @@ public class ModelSettingFragment extends BaseLazyFragment {
     private TextView tvHomeApi;
     private TextView tvDns;
     private TextView tvHomeRec;
-    private TextView tvHistoryNum;
-    private TextView tvSearchView;
     private TextView tvShowPreviewText;
     private TextView tvFastSearchText;
-    private TextView tvRecStyleText;
     private TextView tvIjkCachePlay;
 
     public static ModelSettingFragment newInstance() {
@@ -83,15 +78,13 @@ public class ModelSettingFragment extends BaseLazyFragment {
 
     @Override
     protected int getLayoutResID() {
-        return R.layout.fragment_model;
+        return R.layout.fragment_setting;
     }
 
     @Override
     protected void init() {
         tvFastSearchText = findViewById(R.id.showFastSearchText);
-        tvFastSearchText.setText(Hawk.get(HawkConfig.FAST_SEARCH_MODE, false) ? "已开启" : "已关闭");
-        tvRecStyleText = findViewById(R.id.showRecStyleText);
-        tvRecStyleText.setText(Hawk.get(HawkConfig.HOME_REC_STYLE, false) ? "是" : "否");
+        tvFastSearchText.setText(Hawk.get(HawkConfig.FAST_SEARCH_MODE, false) ? "开启" : "关闭");
         tvShowPreviewText = findViewById(R.id.showPreviewText);
         tvShowPreviewText.setText(Hawk.get(HawkConfig.SHOW_PREVIEW, true) ? "开启" : "关闭");
         tvDebugOpen = findViewById(R.id.tvDebugOpen);
@@ -104,18 +97,15 @@ public class ModelSettingFragment extends BaseLazyFragment {
         tvHomeApi = findViewById(R.id.tvHomeApi);
         tvDns = findViewById(R.id.tvDns);
         tvHomeRec = findViewById(R.id.tvHomeRec);
-        tvHistoryNum = findViewById(R.id.tvHistoryNum);
-        tvSearchView = findViewById(R.id.tvSearchView);
         tvIjkCachePlay = findViewById(R.id.tvIjkCachePlay);
         tvMediaCodec.setText(Hawk.get(HawkConfig.IJK_CODEC, ""));
-        tvDebugOpen.setText(Hawk.get(HawkConfig.DEBUG_OPEN, false) ? "已打开" : "已关闭");
+        tvDebugOpen.setText(Hawk.get(HawkConfig.DEBUG_OPEN, false) ? "开启" : "关闭");
         tvParseWebView.setText(Hawk.get(HawkConfig.PARSE_WEBVIEW, true) ? "系统自带" : "XWalkView");
         tvApi.setText(Hawk.get(HawkConfig.API_URL, ""));
 
         tvDns.setText(OkGoHelper.dnsHttpsList.get(Hawk.get(HawkConfig.DOH_URL, 0)));
         tvHomeRec.setText(getHomeRecName(Hawk.get(HawkConfig.HOME_REC, 0)));
-        tvHistoryNum.setText(HistoryHelper.getHistoryNumName(Hawk.get(HawkConfig.HISTORY_NUM, 0)));
-        tvSearchView.setText(gsearchTextView(Hawk.get(HawkConfig.SEARCH_VIEW, 0)));
+
         tvHomeApi.setText(ApiConfig.get().getHomeSourceBean().getName());
         tvScale.setText(PlayerHelper.getScaleName(Hawk.get(HawkConfig.PLAY_SCALE, 0)));
         tvPlay.setText(PlayerHelper.getPlayerName(Hawk.get(HawkConfig.PLAY_TYPE, 0)));
@@ -126,7 +116,7 @@ public class ModelSettingFragment extends BaseLazyFragment {
             public void onClick(View v) {
                 FastClickCheckUtil.check(v);
                 Hawk.put(HawkConfig.DEBUG_OPEN, !Hawk.get(HawkConfig.DEBUG_OPEN, false));
-                tvDebugOpen.setText(Hawk.get(HawkConfig.DEBUG_OPEN, false) ? "已打开" : "已关闭");
+                tvDebugOpen.setText(Hawk.get(HawkConfig.DEBUG_OPEN, false) ? "开启" : "关闭");
             }
         });
         findViewById(R.id.llParseWebVew).setOnClickListener(new View.OnClickListener() {
@@ -470,7 +460,7 @@ public class ModelSettingFragment extends BaseLazyFragment {
                 ArrayList<Integer> types = new ArrayList<>();
                 types.add(0);
                 types.add(1);
-                types.add(2);
+
                 SelectDialog<Integer> dialog = new SelectDialog<>(mActivity);
                 dialog.setTip("请选择首页列表数据");
                 dialog.setAdapter(new SelectDialogAdapter.SelectDialogInterface<Integer>() {
@@ -483,41 +473,6 @@ public class ModelSettingFragment extends BaseLazyFragment {
                     @Override
                     public String getDisplay(Integer val) {
                         return getHomeRecName(val);
-                    }
-                }, new DiffUtil.ItemCallback<Integer>() {
-                    @Override
-                    public boolean areItemsTheSame(@NonNull @NotNull Integer oldItem, @NonNull @NotNull Integer newItem) {
-                        return oldItem.intValue() == newItem.intValue();
-                    }
-
-                    @Override
-                    public boolean areContentsTheSame(@NonNull @NotNull Integer oldItem, @NonNull @NotNull Integer newItem) {
-                        return oldItem.intValue() == newItem.intValue();
-                    }
-                }, types, defaultPos);
-                dialog.show();
-            }
-        });
-        findViewById(R.id.llSearchView).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FastClickCheckUtil.check(v);
-                int defaultPos = Hawk.get(HawkConfig.SEARCH_VIEW, 0);
-                ArrayList<Integer> types = new ArrayList<>();
-                types.add(0);
-                types.add(1);
-                SelectDialog<Integer> dialog = new SelectDialog<>(mActivity);
-                dialog.setTip("请选择搜索视图");
-                dialog.setAdapter(new SelectDialogAdapter.SelectDialogInterface<Integer>() {
-                    @Override
-                    public void click(Integer value, int pos) {
-                        Hawk.put(HawkConfig.SEARCH_VIEW, value);
-                        tvSearchView.setText(gsearchTextView(value));
-                    }
-
-                    @Override
-                    public String getDisplay(Integer val) {
-                        return gsearchTextView(val);
                     }
                 }, new DiffUtil.ItemCallback<Integer>() {
                     @Override
@@ -548,57 +503,12 @@ public class ModelSettingFragment extends BaseLazyFragment {
                 tvShowPreviewText.setText(Hawk.get(HawkConfig.SHOW_PREVIEW, true) ? "开启" : "关闭");
             }
         });
-        findViewById(R.id.llHistoryNum).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FastClickCheckUtil.check(v);
-                int defaultPos = Hawk.get(HawkConfig.HISTORY_NUM, 0);
-                ArrayList<Integer> types = new ArrayList<>();
-                types.add(SystemConstants.Setting.HomeRecType.DOUBAN.getCode());
-                types.add(SystemConstants.Setting.HomeRecType.SOURCE_REC.getCode());
-                types.add(SystemConstants.Setting.HomeRecType.HISTORY.getCode());
-
-                SelectDialog<Integer> dialog = new SelectDialog<>(mActivity);
-                dialog.setTip("保留历史记录数量");
-                dialog.setAdapter(new SelectDialogAdapter.SelectDialogInterface<Integer>() {
-                    @Override
-                    public void click(Integer value, int pos) {
-                        Hawk.put(HawkConfig.HISTORY_NUM, value);
-                        tvHistoryNum.setText(HistoryHelper.getHistoryNumName(value));
-                    }
-
-                    @Override
-                    public String getDisplay(Integer val) {
-                        return HistoryHelper.getHistoryNumName(val);
-                    }
-                }, new DiffUtil.ItemCallback<Integer>() {
-                    @Override
-                    public boolean areItemsTheSame(@NonNull @NotNull Integer oldItem, @NonNull @NotNull Integer newItem) {
-                        return oldItem.intValue() == newItem.intValue();
-                    }
-
-                    @Override
-                    public boolean areContentsTheSame(@NonNull @NotNull Integer oldItem, @NonNull @NotNull Integer newItem) {
-                        return oldItem.intValue() == newItem.intValue();
-                    }
-                }, types, defaultPos);
-                dialog.show();
-            }
-        });
         findViewById(R.id.showFastSearch).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FastClickCheckUtil.check(v);
                 Hawk.put(HawkConfig.FAST_SEARCH_MODE, !Hawk.get(HawkConfig.FAST_SEARCH_MODE, false));
-                tvFastSearchText.setText(Hawk.get(HawkConfig.FAST_SEARCH_MODE, false) ? "已开启" : "已关闭");
-            }
-        });
-        findViewById(R.id.llHomeRecStyle).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FastClickCheckUtil.check(v);
-                Hawk.put(HawkConfig.HOME_REC_STYLE, !Hawk.get(HawkConfig.HOME_REC_STYLE, false));
-                tvRecStyleText.setText(Hawk.get(HawkConfig.HOME_REC_STYLE, false) ? "是" : "否");
+                tvFastSearchText.setText(Hawk.get(HawkConfig.FAST_SEARCH_MODE, false) ? "开启" : "关闭");
             }
         });
 
@@ -681,7 +591,7 @@ public class ModelSettingFragment extends BaseLazyFragment {
                 e.printStackTrace();
             }
         }).start();
-        Toast.makeText(getContext(), "缓存已清空", Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), "缓存清除成功", Toast.LENGTH_LONG).show();
         return;
     }
 
@@ -697,20 +607,6 @@ public class ModelSettingFragment extends BaseLazyFragment {
     }
 
     String getHomeRecName(int type) {
-        if (type == 1) {
-            return "站点推荐";
-        } else if (type == 2) {
-            return "观看历史";
-        } else {
-            return "豆瓣热播";
-        }
-    }
-
-    String gsearchTextView(int type) {
-        if (type == 0) {
-            return "文字列表";
-        } else {
-            return "缩略图";
-        }
+        return type == 0 ? "豆瓣热播" : "站点推荐";
     }
 }

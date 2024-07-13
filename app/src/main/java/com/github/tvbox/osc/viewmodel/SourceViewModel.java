@@ -146,7 +146,7 @@ public class SourceViewModel extends ViewModel {
                     } finally {
                         if (sortJson != null) {
                             AbsSortXml sortXml = sortJson(sortResult, sortJson);
-                            if (sortXml != null && Hawk.get(HawkConfig.HOME_REC, 0) == 1) {
+                            if (sortXml != null && Hawk.get(HawkConfig.HOME_REC, 0) == SystemConstants.Setting.HomeRecType.SOURCE_REC.getCode()) {
                                 AbsXml absXml = json(null, sortJson, sourceBean.getKey());
                                 if (absXml != null && absXml.movie != null && absXml.movie.videoList != null && absXml.movie.videoList.size() > 0) {
                                     sortXml.videoList = absXml.movie.videoList;
@@ -195,7 +195,7 @@ public class SourceViewModel extends ViewModel {
                                 String json = response.body();
                                 sortXml = sortJson(sortResult, json);
                             }
-                            if (sortXml != null && Hawk.get(HawkConfig.HOME_REC, 0) == 1 && sortXml.list != null && sortXml.list.videoList != null && sortXml.list.videoList.size() > 0) {
+                            if (sortXml != null && Hawk.get(HawkConfig.HOME_REC, 0) == SystemConstants.Setting.HomeRecType.SOURCE_REC.getCode() && sortXml.list != null && sortXml.list.videoList != null && sortXml.list.videoList.size() > 0) {
                                 ArrayList<String> ids = new ArrayList<>();
                                 for (Movie.Video vod : sortXml.list.videoList) {
                                     ids.add(vod.id);
@@ -242,7 +242,7 @@ public class SourceViewModel extends ViewModel {
                                 String sortJson = response.body();
                                 if (sortJson != null) {
                                     AbsSortXml sortXml = sortJson(sortResult, sortJson);
-                                    if (sortXml != null && Hawk.get(HawkConfig.HOME_REC, 0) == 1) {
+                                    if (sortXml != null && Hawk.get(HawkConfig.HOME_REC, 0) == SystemConstants.Setting.HomeRecType.SOURCE_REC.getCode()) {
                                         AbsXml absXml = json(null, sortJson, sourceBean.getKey());
                                         if (absXml != null && absXml.movie != null && absXml.movie.videoList != null && absXml.movie.videoList.size() > 0) {
                                             sortXml.videoList = absXml.movie.videoList;
@@ -286,7 +286,7 @@ public class SourceViewModel extends ViewModel {
                             assert response.body() != null;
                             String sortJson = response.body().string();
                             AbsSortXml sortXml = sortJson(sortResult, sortJson);
-                            if (sortXml != null && Hawk.get(HawkConfig.HOME_REC, 0) == 1) {
+                            if (sortXml != null && Hawk.get(HawkConfig.HOME_REC, 0) == SystemConstants.Setting.HomeRecType.SOURCE_REC.getCode()) {
                                 AbsXml absXml = json(null, sortJson, sourceBean.getKey());
                                 if (absXml != null && absXml.movie != null && absXml.movie.videoList != null && absXml.movie.videoList.size() > 0) {
                                     sortXml.videoList = absXml.movie.videoList;

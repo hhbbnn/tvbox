@@ -16,7 +16,13 @@ public class SystemConstants {
         public static final int TYPE_EXPAND = 4;
     }
 
+    public static class History {
+        // 最大保留历史观看记录
+        public static final int MAX = 35;
+    }
+
     public static class Setting {
+
         public enum HomeRecType {
             DOUBAN(0, "豆瓣热播"),
             SOURCE_REC(1, "推荐"),

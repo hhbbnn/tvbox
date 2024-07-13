@@ -38,6 +38,7 @@ public class SettingActivity extends BaseActivity {
     private SettingMenuAdapter sortAdapter;
     private SettingPageAdapter pageAdapter;
     private List<BaseLazyFragment> fragments = new ArrayList<>();
+
     private boolean sortChange = false;
     private int defaultSelected = 0;
     private int sortFocused = 0;
@@ -64,6 +65,12 @@ public class SettingActivity extends BaseActivity {
         sortAdapter = new SettingMenuAdapter();
         mGridView.setAdapter(sortAdapter);
         mGridView.setLayoutManager(new V7LinearLayoutManager(this.mContext, 1, false));
+
+//        TextView textView = findViewById(R.id.tvApi);
+//        if (textView != null) {
+//            textView.requestFocus();
+//        }
+
         sortAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {

@@ -27,8 +27,8 @@ import com.github.tvbox.osc.bean.Movie;
 import com.github.tvbox.osc.bean.SourceBean;
 import com.github.tvbox.osc.event.RefreshEvent;
 import com.github.tvbox.osc.event.ServerEvent;
-import com.github.tvbox.osc.ui.adapter.SearchKeyAdapter;
 import com.github.tvbox.osc.ui.adapter.SearchAdapter;
+import com.github.tvbox.osc.ui.adapter.SearchKeyAdapter;
 import com.github.tvbox.osc.ui.dialog.RemoteDialog;
 import com.github.tvbox.osc.ui.dialog.SearchCheckboxDialog;
 import com.github.tvbox.osc.ui.tv.widget.SearchKeyboard;
@@ -325,12 +325,7 @@ public class SearchActivity extends BaseActivity {
         sourceViewModel = new ViewModelProvider(this).get(SourceViewModel.class);
 
         mGridView.setHasFixedSize(true);
-        // lite
-        if (Hawk.get(HawkConfig.SEARCH_VIEW, 0) == 0) {
-            mGridView.setLayoutManager(new V7LinearLayoutManager(this.mContext, 1, false));
-        } else {
-            mGridView.setLayoutManager(new V7GridLayoutManager(this.mContext, 3));
-        }
+        mGridView.setLayoutManager(new V7GridLayoutManager(this.mContext, 3));
 
         searchAdapter = new SearchAdapter();
         mGridView.setAdapter(searchAdapter);

@@ -3,16 +3,12 @@ package com.github.tvbox.osc.ui.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.BounceInterpolator;
-import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.github.tvbox.osc.R;
 import com.github.tvbox.osc.api.ApiConfig;
 import com.github.tvbox.osc.base.BaseLazyFragment;
 import com.github.tvbox.osc.bean.Movie;
-import com.github.tvbox.osc.bean.VodInfo;
-import com.github.tvbox.osc.cache.RoomDataManger;
 import com.github.tvbox.osc.constans.SystemConstants;
 import com.github.tvbox.osc.event.ServerEvent;
 import com.github.tvbox.osc.ui.activity.DetailActivity;
@@ -50,8 +46,7 @@ public class UserFragment extends BaseLazyFragment {
 
     public static HomeHotVideoAdapter homeHotVodAdapter;
     private List<Movie.Video> homeSourceRec;
-    public static TvRecyclerView tvHotList1;
-    public static TvRecyclerView tvHotList2;
+    public static TvRecyclerView videoHotList;
 
     public static UserFragment newInstance() {
         return new UserFragment();
@@ -68,32 +63,9 @@ public class UserFragment extends BaseLazyFragment {
 
     @Override
     protected void onFragmentResume() {
-        if (Hawk.get(HawkConfig.HOME_REC_STYLE, false)) {
-            tvHotList1.setVisibility(View.VISIBLE);
-            tvHotList2.setVisibility(View.GONE);
-            tvHotList1.setHasFixedSize(true);
-            tvHotList1.setLayoutManager(new V7GridLayoutManager(this.mContext, 5));
-        } else {
-            tvHotList1.setVisibility(View.GONE);
-            tvHotList2.setVisibility(View.VISIBLE);
-        }
+        videoHotList.setHasFixedSize(true);
+        videoHotList.setLayoutManager(new V7GridLayoutManager(this.mContext, 5));
         super.onFragmentResume();
-
-        if (Hawk.get(HawkConfig.HOME_REC, 0) == 2) {
-            List<VodInfo> allVodRecord = RoomDataManger.getAllVodRecord(30);
-            List<Movie.Video> vodList = new ArrayList<>();
-            for (VodInfo vodInfo : allVodRecord) {
-                Movie.Video vod = new Movie.Video();
-                vod.id = vodInfo.id;
-                vod.sourceKey = vodInfo.sourceKey;
-                vod.name = vodInfo.name;
-                vod.pic = vodInfo.pic;
-                if (vodInfo.playNote != null && !vodInfo.playNote.isEmpty())
-                    vod.note = vodInfo.playNote;
-                vodList.add(vod);
-            }
-            homeHotVodAdapter.setNewData(vodList);
-        }
     }
 
     @Override
@@ -105,8 +77,7 @@ public class UserFragment extends BaseLazyFragment {
     protected void init() {
         EventBus.getDefault().register(this);
 
-        tvHotList1 = findViewById(R.id.tvHotList1);
-        tvHotList2 = findViewById(R.id.tvHotList2);
+        videoHotList = findViewById(R.id.videoHotList);
         homeHotVodAdapter = new HomeHotVideoAdapter();
         homeHotVodAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -115,16 +86,10 @@ public class UserFragment extends BaseLazyFragment {
                     return;
                 Movie.Video vod = ((Movie.Video) adapter.getItem(position));
 
-                // takagen99: CHeck if in Delete Mode
-                if ((vod.id != null && !vod.id.isEmpty()) && (Hawk.get(HawkConfig.HOME_REC, 0) == 2) && HawkConfig.hotVodDelete) {
-                    homeHotVodAdapter.remove(position);
-                    VodInfo vodInfo = RoomDataManger.getVodInfo(vod.sourceKey, vod.id);
-                    RoomDataManger.deleteVodRecord(vod.sourceKey, vodInfo);
-                    Toast.makeText(mContext, "已删除当前记录", Toast.LENGTH_SHORT).show();
-                    /**
-                     * 有ID和数据源，直接播放
-                     */
-                } else if (vod.id != null && !vod.id.isEmpty()) {
+                /**
+                 * 有ID和数据源，直接播放
+                 */
+                if (vod.id != null && !vod.id.isEmpty()) {
                     Bundle bundle = new Bundle();
                     bundle.putString("id", vod.id);
                     bundle.putString("sourceKey", vod.sourceKey);
@@ -155,20 +120,15 @@ public class UserFragment extends BaseLazyFragment {
                 }
 
                 Movie.Video vod = ((Movie.Video) adapter.getItem(position));
-                // Additional Check if : Home Rec 0=豆瓣, 1=推荐, 2=历史
-                if ((vod.id != null && !vod.id.isEmpty()) && (Hawk.get(HawkConfig.HOME_REC, 0) == SystemConstants.Setting.HomeRecType.HISTORY.getCode())) {
-                    HawkConfig.hotVodDelete = !HawkConfig.hotVodDelete;
-                    homeHotVodAdapter.notifyDataSetChanged();
-                } else {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("title", vod.name);
-                    jumpActivity(FastSearchActivity.class, bundle);
-                }
+                Bundle bundle = new Bundle();
+                bundle.putString("title", vod.name);
+                jumpActivity(FastSearchActivity.class, bundle);
+
                 return true;
             }
         });
 
-        tvHotList1.setOnItemListener(new TvRecyclerView.OnItemListener() {
+        videoHotList.setOnItemListener(new TvRecyclerView.OnItemListener() {
             @Override
             public void onItemPreSelected(TvRecyclerView parent, View itemView, int position) {
             }
@@ -185,38 +145,19 @@ public class UserFragment extends BaseLazyFragment {
 
             }
         });
-        tvHotList1.setAdapter(homeHotVodAdapter);
-
-        tvHotList2.setOnItemListener(new TvRecyclerView.OnItemListener() {
-            @Override
-            public void onItemPreSelected(TvRecyclerView parent, View itemView, int position) {
-                itemView.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300).setInterpolator(new BounceInterpolator()).start();
-            }
-
-            @Override
-            public void onItemSelected(TvRecyclerView parent, View itemView, int position) {
-                itemView.animate().scaleX(1.05f).scaleY(1.05f).setDuration(300).setInterpolator(new BounceInterpolator()).start();
-            }
-
-            @Override
-            public void onItemClick(TvRecyclerView parent, View itemView, int position) {
-
-            }
-        });
-        tvHotList2.setAdapter(homeHotVodAdapter);
+        videoHotList.setAdapter(homeHotVodAdapter);
 
         initHomeHotVod(homeHotVodAdapter);
     }
 
     private void initHomeHotVod(HomeHotVideoAdapter adapter) {
-        if (Hawk.get(HawkConfig.HOME_REC, 0) == 1) {
+        if (Hawk.get(HawkConfig.HOME_REC, 0) == SystemConstants.Setting.HomeRecType.SOURCE_REC.getCode()) {
             if (homeSourceRec != null) {
                 adapter.setNewData(homeSourceRec);
                 return;
             }
-        } else if (Hawk.get(HawkConfig.HOME_REC, 0) == 2) {
-            return;
         }
+
         setDouBanData(adapter);
     }
 

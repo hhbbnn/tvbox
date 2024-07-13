@@ -5,16 +5,14 @@ import android.text.TextUtils;
 import com.github.tvbox.osc.api.ApiConfig;
 import com.github.tvbox.osc.bean.SourceBean;
 import com.github.tvbox.osc.bean.VodInfo;
+import com.github.tvbox.osc.constans.SystemConstants;
 import com.github.tvbox.osc.data.AppDataManager;
 import com.google.gson.ExclusionStrategy;
-import com.github.tvbox.osc.util.HawkConfig;
-import com.github.tvbox.osc.util.HistoryHelper;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import com.orhanobut.hawk.Hawk;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,29 +80,25 @@ public class RoomDataManger {
     }
 
     public static List<VodInfo> getAllVodRecord(int limit) {
-        int count = AppDataManager.get().getVodRecordDao().getCount();
-        Integer index = Hawk.get(HawkConfig.HISTORY_NUM, 0);
-        Integer hisNum = HistoryHelper.getHisNum(index);
-        if ( count > hisNum ) {
-            AppDataManager.get().getVodRecordDao().reserver(hisNum);
+        // 超出历史记录
+        if (AppDataManager.get().getVodRecordDao().getCount() > SystemConstants.History.MAX) {
+            AppDataManager.get().getVodRecordDao().reserver(SystemConstants.History.MAX);
         }
-        List<VodRecord> recordList = AppDataManager.get().getVodRecordDao().getAll(limit);
+
         List<VodInfo> vodInfoList = new ArrayList<>();
+        List<VodRecord> recordList = AppDataManager.get().getVodRecordDao().getAll(limit);
         if (recordList != null) {
             for (VodRecord record : recordList) {
                 VodInfo info = null;
-                try {
-                    if (record.dataJson != null && !TextUtils.isEmpty(record.dataJson)) {
-                        info = getVodInfoGson().fromJson(record.dataJson, new TypeToken<VodInfo>() {
-                        }.getType());
-                        info.sourceKey = record.sourceKey;
-                        SourceBean sourceBean = ApiConfig.get().getSource(info.sourceKey);
-                        if (sourceBean == null || info.name == null)
-                            info = null;
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
+                if (record.dataJson != null && !TextUtils.isEmpty(record.dataJson)) {
+                    info = getVodInfoGson().fromJson(record.dataJson, new TypeToken<VodInfo>() {
+                    }.getType());
+                    info.sourceKey = record.sourceKey;
+                    SourceBean sourceBean = ApiConfig.get().getSource(info.sourceKey);
+                    if (sourceBean == null || info.name == null)
+                        info = null;
                 }
+
                 if (info != null)
                     vodInfoList.add(info);
             }
@@ -136,7 +130,7 @@ public class RoomDataManger {
             AppDataManager.get().getVodCollectDao().delete(record);
         }
     }
-    
+
     public static void deleteVodCollectAll() {
         AppDataManager.get().getVodCollectDao().deleteAll();
     }

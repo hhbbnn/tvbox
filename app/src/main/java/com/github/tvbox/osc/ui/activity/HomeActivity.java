@@ -24,6 +24,7 @@ import com.github.tvbox.osc.base.BaseLazyFragment;
 import com.github.tvbox.osc.bean.AbsSortXml;
 import com.github.tvbox.osc.bean.MovieSort;
 import com.github.tvbox.osc.bean.SourceBean;
+import com.github.tvbox.osc.constans.SystemConstants;
 import com.github.tvbox.osc.event.RefreshEvent;
 import com.github.tvbox.osc.server.ControlManager;
 import com.github.tvbox.osc.ui.adapter.HomeMenuAdapter;
@@ -212,7 +213,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
                 for (MovieSort.SortData data : menuAdapter.getData()) {
                     if (data.id.equals("menuHome")) {
-                        if (Hawk.get(HawkConfig.HOME_REC, 0) == 1 && absXml != null && absXml.videoList != null && absXml.videoList.size() > 0) {
+                        if (Hawk.get(HawkConfig.HOME_REC, 0) == SystemConstants.Setting.HomeRecType.SOURCE_REC.getCode() && absXml != null && absXml.videoList != null && absXml.videoList.size() > 0) {
                             fragments.add(UserFragment.newInstance(absXml.videoList));
                         } else {
                             fragments.add(UserFragment.newInstance(null));
@@ -426,8 +427,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                 } else {
                     exit();
                 }
-            } else if (baseLazyFragment instanceof UserFragment && UserFragment.tvHotList1.canScrollVertically(-1)) {
-                UserFragment.tvHotList1.scrollToPosition(2);
+            } else if (baseLazyFragment instanceof UserFragment && UserFragment.videoHotList.canScrollVertically(-1)) {
+                UserFragment.videoHotList.scrollToPosition(2);
                 this.menuView.setSelection(2);
             } else {
                 exit();
