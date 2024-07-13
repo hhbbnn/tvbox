@@ -2,19 +2,19 @@ package com.github.tvbox.osc.ui.fragment;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.BounceInterpolator;
+import android.widget.Toast;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.github.tvbox.osc.R;
-import com.github.tvbox.osc.api.ApiConfig;
 import com.github.tvbox.osc.base.BaseLazyFragment;
 import com.github.tvbox.osc.bean.AbsXml;
 import com.github.tvbox.osc.bean.Movie;
 import com.github.tvbox.osc.bean.MovieSort;
-import com.github.tvbox.osc.bean.SourceBean;
 import com.github.tvbox.osc.event.RefreshEvent;
 import com.github.tvbox.osc.ui.activity.DetailActivity;
 import com.github.tvbox.osc.ui.activity.FastSearchActivity;
@@ -29,11 +29,10 @@ import com.orhanobut.hawk.Hawk;
 import com.owen.tvrecyclerview.widget.TvRecyclerView;
 import com.owen.tvrecyclerview.widget.V7GridLayoutManager;
 import com.owen.tvrecyclerview.widget.V7LinearLayoutManager;
-import java.util.Stack;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.util.Stack;
 
 /**
  * @author pj567
@@ -52,15 +51,17 @@ public class GridFragment extends BaseLazyFragment {
     private boolean isTop = true;
     private View focusedView = null;
     private String default_sourceKey = null;
-    private class GridInfo{
-        public String sortID="";
+
+    private class GridInfo {
+        public String sortID = "";
         public TvRecyclerView mGridView;
         public GridAdapter gridAdapter;
         public int page = 1;
         public int maxPage = 1;
         public boolean isLoad = false;
-        public View focusedView= null;
+        public View focusedView = null;
     }
+
     Stack<GridInfo> mGrids = new Stack<GridInfo>(); //ui栈
 
     public static GridFragment newInstance(MovieSort.SortData sortData) {
@@ -84,28 +85,36 @@ public class GridFragment extends BaseLazyFragment {
         initData();
     }
 
-    private void changeView(String id,Boolean isFolder){
-        if(isFolder){
-            this.sortData.flag ="1"; // 修改sortData.flag
-        }else {
-            this.sortData.flag ="2"; // 修改sortData.flag
+    private void changeView(String id, Boolean isFolder) {
+        if (isFolder) {
+            this.sortData.flag = "1"; // 修改sortData.flag
+        } else {
+            this.sortData.flag = "2"; // 修改sortData.flag
         }
         initView();
-        this.sortData.id =id; // 修改sortData.id为新的ID
+        this.sortData.id = id; // 修改sortData.id为新的ID
         initViewModel();
         initData();
     }
-    public boolean isFolederMode(){ return (getUITag() =='1'); }
-    // 获取当前页面UI的显示模式 ‘0’ 正常模式 '1' 文件夹模式 '2' 显示缩略图的文件夹模式
-    public char getUITag(){
-        System.out.println(sortData);
-        return (sortData == null || sortData.flag == null || sortData.flag.length() ==0 ) ?  '0' : sortData.flag.charAt(0);
+
+    public boolean isFolederMode() {
+        return (getUITag() == '1');
     }
+
+    // 获取当前页面UI的显示模式 ‘0’ 正常模式 '1' 文件夹模式 '2' 显示缩略图的文件夹模式
+    public char getUITag() {
+//        System.out.println(sortData);
+        return (sortData == null || sortData.flag == null || sortData.flag.length() == 0) ? '0' : sortData.flag.charAt(0);
+    }
+
     // 是否允许聚合搜索 sortData.flag的第二个字符为‘1’时允许聚搜
-    public boolean enableFastSearch(){  return sortData.flag == null || sortData.flag.length() < 2 || (sortData.flag.charAt(1) == '1'); }
+    public boolean enableFastSearch() {
+        return sortData.flag == null || sortData.flag.length() < 2 || (sortData.flag.charAt(1) == '1');
+    }
+
     // 保存当前页面
-    private void saveCurrentView(){
-        if(this.mGridView == null) return;
+    private void saveCurrentView() {
+        if (this.mGridView == null) return;
         GridInfo info = new GridInfo();
         info.sortID = this.sortData.id;
         info.mGridView = this.mGridView;
@@ -116,9 +125,10 @@ public class GridFragment extends BaseLazyFragment {
         info.focusedView = this.focusedView;
         this.mGrids.push(info);
     }
+
     // 丢弃当前页面，将页面还原成上一个保存的页面
-    public boolean restoreView(){
-        if(mGrids.empty()) return false;
+    public boolean restoreView() {
+        if (mGrids.empty()) return false;
         this.closeLoading();
         ((ViewGroup) mGridView.getParent()).removeView(this.mGridView); // 重父窗口移除当前控件
         GridInfo info = mGrids.pop();// 还原上次保存的控件
@@ -131,17 +141,18 @@ public class GridFragment extends BaseLazyFragment {
         this.focusedView = info.focusedView;
         this.mGridView.setVisibility(View.VISIBLE);
 //        if(this.focusedView != null){ this.focusedView.requestFocus(); }
-        if(mGridView != null) mGridView.requestFocus();
+        if (mGridView != null) mGridView.requestFocus();
         return true;
     }
+
     // 更改当前页面
-    private void createView(){
+    private void createView() {
         this.saveCurrentView(); // 保存当前页面
-        if(mGridView == null){ // 从layout中拿view
+        if (mGridView == null) { // 从layout中拿view
             mGridView = findViewById(R.id.mGridView);
-        }else{ // 复制当前view
+        } else { // 复制当前view
             TvRecyclerView v3 = new TvRecyclerView(this.mContext);
-            v3.setSpacingWithMargins(10,10);
+            v3.setSpacingWithMargins(10, 10);
             v3.setLayoutParams(mGridView.getLayoutParams());
             v3.setPadding(mGridView.getPaddingLeft(), mGridView.getPaddingTop(), mGridView.getPaddingRight(), mGridView.getPaddingBottom());
             v3.setClipToPadding(mGridView.getClipToPadding());
@@ -152,17 +163,17 @@ public class GridFragment extends BaseLazyFragment {
         }
         mGridView.setHasFixedSize(true);
         gridAdapter = new GridAdapter(isFolederMode());
-        this.page =1;
-        this.maxPage =1;
+        this.page = 1;
+        this.maxPage = 1;
         this.isLoad = false;
     }
 
     private void initView() {
         this.createView();
         mGridView.setAdapter(gridAdapter);
-        if(isFolederMode()){
+        if (isFolederMode()) {
             mGridView.setLayoutManager(new V7LinearLayoutManager(this.mContext, 1, false));
-        }else{
+        } else {
             mGridView.setLayoutManager(new V7GridLayoutManager(this.mContext, isBaseOnWidth() ? 5 : 6));
         }
 
@@ -207,18 +218,17 @@ public class GridFragment extends BaseLazyFragment {
                     bundle.putString("id", video.id);
                     bundle.putString("sourceKey", video.sourceKey);
                     bundle.putString("title", video.name);
-                    if(("12".indexOf(getUITag()) != -1) && (video.tag.equals("folder") || video.tag.equals("cover"))){
+                    if (("12".indexOf(getUITag()) != -1) && (video.tag.equals("folder") || video.tag.equals("cover"))) {
                         focusedView = view;
-                        changeView(video.id,video.tag.equals("folder"));
-                    }
-                    else{
-                        if(video.id == null || video.id.isEmpty() || video.id.startsWith("msearch:")){
-                            if(Hawk.get(HawkConfig.FAST_SEARCH_MODE, false) && enableFastSearch()){
+                        changeView(video.id, video.tag.equals("folder"));
+                    } else {
+                        if (video.id == null || video.id.isEmpty() || video.id.startsWith("msearch:")) {
+                            if (Hawk.get(HawkConfig.FAST_SEARCH_MODE, false) && enableFastSearch()) {
                                 jumpActivity(FastSearchActivity.class, bundle);
-                            }else {
+                            } else {
                                 jumpActivity(SearchActivity.class, bundle);
                             }
-                        }else {
+                        } else {
                             jumpActivity(DetailActivity.class, bundle);
                         }
                     }
@@ -246,7 +256,9 @@ public class GridFragment extends BaseLazyFragment {
     }
 
     private void initViewModel() {
-        if(sourceViewModel != null) { return;}
+        if (sourceViewModel != null) {
+            return;
+        }
         sourceViewModel = new ViewModelProvider(this).get(SourceViewModel.class);
         sourceViewModel.listResult.observe(this, new Observer<AbsXml>() {
             @Override
@@ -263,18 +275,19 @@ public class GridFragment extends BaseLazyFragment {
                     page++;
                     maxPage = absXml.movie.pagecount;
 
-                    if (maxPage>0 && page > maxPage) {
+                    if (maxPage > 0 && page > maxPage) {
                         gridAdapter.loadMoreEnd();
                         gridAdapter.setEnableLoadMore(false);
-                        if(page>2)Toast.makeText(getContext(), "最后一页啦", Toast.LENGTH_SHORT).show();
+                        if (page > 2)
+                            Toast.makeText(getContext(), "最后一页啦", Toast.LENGTH_SHORT).show();
                     } else {
                         gridAdapter.loadMoreComplete();
                         gridAdapter.setEnableLoadMore(true);
                     }
                 } else {
-                    if(page == 1){
+                    if (page == 1) {
                         showEmpty();
-                    }else{
+                    } else {
                         Toast.makeText(getContext(), "最后一页啦", Toast.LENGTH_SHORT).show();
                         gridAdapter.loadMoreEnd();
                     }

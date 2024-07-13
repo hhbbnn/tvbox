@@ -22,19 +22,26 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="28mm"
+                android:layout_height="28mm"
+                android:layout_gravity="center"
+                android:src="@drawable/icon_video_logo" />
             <!--        logo-->
             <TextView
                 android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:alpha="0.7"
+                android:layout_marginLeft="10mm"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
                 android:gravity="left|center_vertical"
                 android:text="@string/app_name"
                 android:textAlignment="gravity"
                 android:textColor="@android:color/white"
-                android:textSize="24mm" />
+                android:textSize="24mm"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -149,7 +156,7 @@
                     android:gravity="right|center_vertical"
                     android:textAlignment="gravity"
                     android:textColor="@android:color/white"
-                    android:textSize="28mm"
+                    android:textSize="26mm"
                     tools:text="14:38" />
             </LinearLayout>
         </LinearLayout>

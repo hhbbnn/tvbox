@@ -1,61 +1,28 @@
 package com.github.tvbox.osc.ui.adapter;
 
-import android.text.TextUtils;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.github.tvbox.osc.R;
 import com.github.tvbox.osc.bean.Movie;
 import com.github.tvbox.osc.constans.SystemConstants;
-import com.github.tvbox.osc.util.DefaultConfig;
 import com.github.tvbox.osc.util.HawkConfig;
 import com.github.tvbox.osc.util.VideoUtils;
 import com.orhanobut.hawk.Hawk;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class HomeHotVideoAdapter extends BaseQuickAdapter<Movie.Video, BaseViewHolder> {
     public HomeHotVideoAdapter() {
-        super(R.layout.activity_home_video_list, new ArrayList<>());
+        super(R.layout.activity_common_video_list, new ArrayList<>());
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, Movie.Video item) {
-        VideoUtils.reSizeVideoItemFrame(helper, mContext, 220, 330);
+    protected void convert(BaseViewHolder helper, Movie.Video video) {
+        String remark = Hawk.get(HawkConfig.HOME_REC, 0) == SystemConstants.Setting.HomeRecType.DOUBAN.getCode()
+                ? "豆瓣热门" : null;
 
-        TextView tvRate = helper.getView(R.id.tvRate);
-        if (Hawk.get(HawkConfig.HOME_REC, 0) == SystemConstants.Setting.HomeRecType.DOUBAN.getCode()) {
-            tvRate.setText("豆瓣热播");
-        } else {
-            tvRate.setVisibility(View.GONE);
-        }
-
-        TextView tvNote = helper.getView(R.id.tvNote);
-        if (item.note == null || item.note.isEmpty()) {
-            tvNote.setVisibility(View.GONE);
-        } else {
-            tvNote.setText(item.note);
-            tvNote.setVisibility(View.VISIBLE);
-        }
-        helper.setText(R.id.tvName, item.name);
-
-        ImageView videoPoster = helper.getView(R.id.videoPoster);
-        //由于部分电视机使用glide报错
-        if (!TextUtils.isEmpty(item.pic)) {
-            item.pic = item.pic.trim();
-//            System.out.println(item.pic);
-            Picasso.get()
-                    .load(DefaultConfig.checkReplaceProxy(item.pic))
-                    .placeholder(R.drawable.jpg_vertical_default)
-                    .noFade()
-                    .error(R.drawable.jpg_vertical_404)
-                    .into(videoPoster);
-        } else {
-            videoPoster.setImageResource(R.drawable.jpg_vertical_default);
-        }
+        VideoUtils.ListItem.setCommonParam(helper, video.name, remark, video.note);
+        VideoUtils.ListItem.setImageStyle(helper, mContext, video.pic, 0);
+        VideoUtils.reSizeVideoItemFrame(helper, mContext, 200, 300);
     }
 }

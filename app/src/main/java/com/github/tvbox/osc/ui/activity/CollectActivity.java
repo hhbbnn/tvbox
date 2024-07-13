@@ -1,12 +1,10 @@
 package com.github.tvbox.osc.ui.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.BounceInterpolator;
-import android.widget.TextView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.github.tvbox.osc.R;
@@ -16,6 +14,7 @@ import com.github.tvbox.osc.cache.RoomDataManger;
 import com.github.tvbox.osc.cache.VodCollect;
 import com.github.tvbox.osc.event.RefreshEvent;
 import com.github.tvbox.osc.ui.adapter.CollectAdapter;
+import com.github.tvbox.osc.ui.animate.ViewAnimate;
 import com.github.tvbox.osc.ui.dialog.ConfirmClearDialog;
 import com.github.tvbox.osc.util.FastClickCheckUtil;
 import com.github.tvbox.osc.util.HawkConfig;
@@ -49,7 +48,7 @@ public class CollectActivity extends BaseActivity {
     }
 
     private void toggleDelMode() {
-    	HawkConfig.hotVodDelete = !HawkConfig.hotVodDelete;
+        HawkConfig.hotVodDelete = !HawkConfig.hotVodDelete;
         collectAdapter.notifyDataSetChanged();
         delMode = !delMode;
         tvDelTip.setVisibility(delMode ? View.VISIBLE : View.GONE);
@@ -65,6 +64,7 @@ public class CollectActivity extends BaseActivity {
         mGridView.setLayoutManager(new V7GridLayoutManager(this.mContext, isBaseOnWidth() ? 5 : 6));
         collectAdapter = new CollectAdapter();
         mGridView.setAdapter(collectAdapter);
+
         tvDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,12 +92,13 @@ public class CollectActivity extends BaseActivity {
         mGridView.setOnItemListener(new TvRecyclerView.OnItemListener() {
             @Override
             public void onItemPreSelected(TvRecyclerView parent, View itemView, int position) {
-                itemView.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300).setInterpolator(new BounceInterpolator()).start();
             }
 
             @Override
             public void onItemSelected(TvRecyclerView parent, View itemView, int position) {
-                itemView.animate().scaleX(1.1f).scaleY(1.1f).setDuration(300).setInterpolator(new BounceInterpolator()).start();
+                View view = itemView.findViewById(R.id.videoPosterBox);
+                ViewAnimate.animateVideoItemFocus(itemView);
+                view.requestFocus();
             }
 
             @Override

@@ -58,6 +58,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import me.jessyan.autosize.utils.AutoSizeUtils;
 
@@ -170,8 +171,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             @Override
             public void run() {
                 Date date = new Date();
-                SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-                tvDate.setText(timeFormat.format(date));
+                // 动态获取系统默认的地区设置
+                Locale locale = Locale.getDefault();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("EEE HH:mm", locale);
+                tvDate.setText(dateFormat.format(date).replace("星期", "周"));
                 handler.postDelayed(this, 1000);
             }
         };
