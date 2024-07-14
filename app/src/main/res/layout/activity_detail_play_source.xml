@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="12mm"
+    android:background="@drawable/style_detail_episode_group_focus"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical"
+    android:padding="12mm">
+
+    <TextView
+        android:id="@+id/playSource"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:singleLine="true"
+        android:text="优酷"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/ts_20" />
+
+    <View
+        android:id="@+id/playSourceSelect"
+        android:layout_width="match_parent"
+        android:layout_height="5mm"
+        android:layout_marginLeft="6mm"
+        android:layout_marginTop="4mm"
+        android:layout_marginRight="6mm"
+        android:background="@drawable/style_detail_source_focus" />
+</LinearLayout>

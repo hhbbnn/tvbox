@@ -1,315 +1,253 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
-            android:id="@+id/llLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="24mm">
+        android:id="@+id/contentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="24mm">
 
+        <!--        无数据-->
         <LinearLayout
-                android:id="@+id/topLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/vs_10"
-                android:orientation="horizontal"
-                android:paddingBottom="@dimen/vs_10">
+            android:id="@+id/emptyPlaylist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="200mm"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <ImageView
-                    android:id="@+id/videoPoster"
-                    android:layout_width="220mm"
-                    android:layout_height="330mm"
-                    android:scaleType="fitXY"/>
-            <!--横屏587mm-->
-            <View
-                    android:id="@+id/previewPlayerPlace"
-                    android:layout_width="587mm"
-                    android:layout_height="330mm"
-                    android:visibility="gone"/>
+                android:layout_width="@dimen/vs_128"
+                android:layout_height="@dimen/vs_128"
+                android:layout_gravity="center"
+                android:src="@drawable/png_empty" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/vs_10"
+                android:layout_marginLeft="@dimen/vs_10"
+                android:gravity="center"
+                android:text="暂无播放数据"
+                android:textColor="@color/color_FFFFFF_50"
+                android:textSize="@dimen/ts_24" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/topLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <!--海报：竖屏-->
+            <ImageView
+                android:id="@+id/videoPoster"
+                android:layout_width="230mm"
+                android:layout_height="350mm"
+                android:scaleType="fitXY" />
+
+            <!--海报：横屏-->
+            <View
+                android:id="@+id/playPreview"
+                android:layout_width="622mm"
+                android:layout_height="350mm"
+                android:visibility="gone" />
+
+            <!--右侧信息-->
             <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/vs_320"
-                    android:layout_marginLeft="24mm"
-                    android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24mm"
+                android:layout_marginTop="12mm"
+                android:orientation="vertical">
 
                 <TextView
-                        android:id="@+id/tvName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:text="欢乐颂"
-                        android:singleLine="true"
-                        android:textColor="@android:color/white"
-                        android:textSize="38mm"/>
+                    android:id="@+id/videoName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="欢乐颂"
+                    android:textColor="@android:color/white"
+                    android:textSize="38mm" />
 
                 <!--来源-->
                 <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="24mm"
-                        android:orientation="horizontal">
-                    <!--来源-->
-                    <TextView
-                            android:id="@+id/tvSite"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/vs_10"
-                            android:layout_marginRight="@dimen/vs_10"
-                            android:ellipsize="end"
-                            android:maxLines="1"
-                            android:singleLine="true"
-                            android:textColor="@color/color_CCFFFFFF"
-                            android:text="南瓜影视"
-                            android:textSize="22mm"/>
-                    <!--类型-->
-                    <TextView
-                            android:id="@+id/tvYear"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/vs_10"
-                            android:layout_marginRight="@dimen/vs_10"
-                            android:ellipsize="end"
-                            android:maxLines="1"
-                            android:singleLine="true"
-                            android:textColor="@android:color/white"
-                            android:textSize="22mm"/>
-                    <TextView
-                            android:id="@+id/tvArea"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/vs_10"
-                            android:layout_marginRight="@dimen/vs_10"
-                            android:ellipsize="end"
-                            android:maxLines="1"
-                            android:singleLine="true"
-                            android:text="2014"
-                            android:textColor="@android:color/white"
-                            android:textSize="22mm"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20mm"
+                    android:orientation="horizontal">
 
                     <TextView
-                            android:id="@+id/tvLang"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/vs_10"
-                            android:layout_marginRight="@dimen/vs_10"
-                            android:ellipsize="end"
-                            android:maxLines="1"
-                            android:singleLine="true"
-                            android:text="中国"
-                            android:textColor="@android:color/white"
-                            android:textSize="22mm"/>
-
-                    <TextView
-                            android:id="@+id/tvType"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/vs_10"
-                            android:layout_marginRight="@dimen/vs_10"
-                            android:ellipsize="end"
-                            android:maxLines="1"
-                            android:singleLine="true"
-                            android:text="类型片"
-                            android:textColor="@android:color/white"
-                            android:textSize="22mm"/>
-                </LinearLayout>
-
-                <LinearLayout android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:layout_marginTop="12mm"
-                              android:orientation="horizontal">
-                    <TextView
-                            android:id="@+id/tvActor"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/vs_10"
-                            android:layout_marginRight="@dimen/vs_10"
-                            android:layout_marginBottom="@dimen/vs_5"
-                            android:ellipsize="end"
-                            android:singleLine="true"
-                            android:textColor="@android:color/white"
-                            android:text="姚晨"
-                            android:textSize="22mm"/>
-
-                    <TextView
-                            android:id="@+id/tvDirector"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/vs_10"
-                            android:layout_marginRight="@dimen/vs_10"
-                            android:layout_marginBottom="@dimen/vs_5"
-                            android:ellipsize="end"
-                            android:singleLine="true"
-                            android:textColor="@android:color/white"
-                            android:text="宁浩"
-                            android:textSize="22mm"/>
-                </LinearLayout>
-
-                <LinearLayout android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:layout_marginTop="24mm"
-                              android:orientation="horizontal">
-                    <TextView
-                            android:id="@+id/tvDes"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ellipsize="end"
-                            android:lineSpacingMultiplier="1.2"
-                            android:maxLines="2"
-                            android:textColor="@color/color_FFFFFF_50"
-                            android:text="tvDes"
-                            android:textSize="22mm"/>
-                </LinearLayout>
-
-                <Space
+                        android:id="@+id/tvLang"
                         android:layout_width="wrap_content"
-                        android:layout_height="0mm"
-                        android:layout_weight="1"/>
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:text="中国"
+                        android:textColor="@android:color/white"
+                        android:textSize="22mm" />
+                </LinearLayout>
 
                 <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12mm"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvActor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text="姚晨"
+                        android:textColor="@android:color/white"
+                        android:textSize="22mm" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20mm"
+                    android:orientation="horizontal">
 
                     <TextView
-                            android:id="@+id/tvPlay"
-                            android:layout_width="100mm"
-                            android:layout_height="60mm"
-                            android:layout_marginEnd="@dimen/vs_10"
-                            android:layout_marginRight="@dimen/vs_10"
-                            android:background="@drawable/button_detail_menu"
-                            android:focusable="true"
-                            android:gravity="center"
-                            android:text="播放"
-                            android:textColor="@android:color/white"
-                            android:textSize="@dimen/vs_20"/>
+                        android:id="@+id/videoDesc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:alpha=".6"
+                        android:ellipsize="end"
+                        android:maxLines="3"
+                        android:text="表面上无限风光的苏家，随着苏母的突然离世，瞬间分崩离析。意想不到的隐患层层显露，对毫无主见却又自私、小气的苏父的安置和后续生活问题，打破了远在国外的大哥与本城的二哥、小妹三家的平静生活。父亲苏大强终于摆脱了妻子的铁腕，对几个孩子变本加厉，不断提出过分要求。在美国工作的老大苏明哲回到国内，一心要挑起家庭重担，却力不能及不堪重负，致使妻子孩子与其不断疏远。一直啃老的老二苏明成毫无悔改之心，贪慕虚荣一心发财，从而导致事业和家庭的双重惨败。最不受父母待见，十八岁起就和家里断绝经济往来的老小苏明玉，曾发誓与这个家庭划清界限，却因亲情牵绊，再次搅进了苏家的泥潭之中，在苏家的一次次危机中出手相助。最终，苏家人明白到，虽然有血脉相连，但是一家人彼此间的沟通也不能忽视，终于实现了亲情的回归"
+                        android:textColor="@color/color_FFFFFF_100"
+                        android:textSize="22mm" />
+                </LinearLayout>
+
+                <!-- 图片位于顶部 -->
+                <!--                    <ImageView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:adjustViewBounds="true"-->
+                <!--                        android:src="@drawable/icon_play" />-->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20mm"
+                    android:orientation="horizontal">
 
                     <TextView
-                            android:id="@+id/tvCollect"
-                            android:layout_width="120mm"
-                            android:layout_height="60mm"
-                            android:layout_marginEnd="@dimen/vs_10"
-                            android:layout_marginRight="@dimen/vs_10"
-                            android:background="@drawable/button_detail_menu"
-                            android:focusable="true"
-                            android:gravity="center"
-                            android:text="收藏"
-                            android:textColor="@android:color/white"
-                            android:textSize="@dimen/vs_20"/>
+                        android:id="@+id/tvPlay"
+                        android:layout_width="100mm"
+                        android:layout_height="60mm"
+                        android:layout_marginEnd="@dimen/vs_10"
+                        android:layout_marginRight="@dimen/vs_10"
+                        android:background="@drawable/button_detail_menu"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:text="播放"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/vs_20" />
 
                     <TextView
-                            android:id="@+id/tvQuickSearch"
-                            android:layout_width="100mm"
-                            android:layout_height="60mm"
-                            android:layout_marginEnd="@dimen/vs_10"
-                            android:layout_marginRight="@dimen/vs_10"
-                            android:background="@drawable/button_detail_menu"
-                            android:focusable="true"
-                            android:gravity="center"
-                            android:text="搜索"
-                            android:textColor="@android:color/white"
-                            android:textSize="@dimen/vs_20"/>
+                        android:id="@+id/tvCollect"
+                        android:layout_width="120mm"
+                        android:layout_height="60mm"
+                        android:layout_marginEnd="@dimen/vs_10"
+                        android:layout_marginRight="@dimen/vs_10"
+                        android:background="@drawable/button_detail_menu"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:text="收藏"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/vs_20" />
 
                     <TextView
-                            android:id="@+id/tvSort"
-                            android:layout_width="100mm"
-                            android:layout_height="60mm"
-                            android:background="@drawable/button_detail_menu"
-                            android:focusable="true"
-                            android:gravity="center"
-                            android:text="倒序"
-                            android:textColor="@android:color/white"
-                            android:textSize="@dimen/vs_20"/>
+                        android:id="@+id/tvQuickSearch"
+                        android:layout_width="100mm"
+                        android:layout_height="60mm"
+                        android:layout_marginEnd="@dimen/vs_10"
+                        android:layout_marginRight="@dimen/vs_10"
+                        android:background="@drawable/button_detail_menu"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:text="搜索"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/vs_20" />
+
+                    <TextView
+                        android:id="@+id/tvSort"
+                        android:layout_width="100mm"
+                        android:layout_height="60mm"
+                        android:background="@drawable/button_detail_menu"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:text="倒序"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/vs_20" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 
-
-        <LinearLayout
-                android:id="@+id/mEmptyPlaylist"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal"
-                tools:visibility="gone">
-
-            <ImageView
-                    android:layout_width="@dimen/vs_128"
-                    android:layout_height="@dimen/vs_128"
-                    android:layout_gravity="center"
-                    android:src="@drawable/icon_empty"/>
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/vs_10"
-                    android:layout_marginLeft="@dimen/vs_10"
-                    android:gravity="center"
-                    android:text="暂无播放数据"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/ts_24"/>
-        </LinearLayout>
-
         <!--播放源-->
         <com.owen.tvrecyclerview.widget.TvRecyclerView
-                android:id="@+id/mGridViewFlag"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/vs_45"
-                android:layout_marginTop="24mm"
-                android:clipChildren="false"
-                android:clipToPadding="false"
-                app:tv_horizontalSpacingWithMargins="12mm"
-                app:tv_selectedItemIsCentered="true"/>
+            android:id="@+id/playSourceView"
+            android:layout_width="match_parent"
+            android:layout_height="60mm"
+            android:layout_marginTop="20mm"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            app:tv_horizontalSpacingWithMargins="12mm"
+            app:tv_selectedItemIsCentered="true" />
 
         <!--        集数范围-->
         <com.owen.tvrecyclerview.widget.TvRecyclerView
-                android:id="@+id/mSeriesGroupView"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/vs_45"
-                android:layout_marginTop="12mm"
-                android:clipChildren="false"
-                android:clipToPadding="false"
-                app:tv_horizontalSpacingWithMargins="24mm"
-                app:tv_selectedItemIsCentered="true"/>
+            android:id="@+id/mSeriesGroupView"
+            android:layout_width="match_parent"
+            android:layout_height="50mm"
+            android:layout_marginTop="12mm"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            app:tv_horizontalSpacingWithMargins="24mm"
+            app:tv_selectedItemIsCentered="true" />
+
         <!--集-->
         <com.owen.tvrecyclerview.widget.TvRecyclerView
-                android:id="@+id/mGridView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="12mm"
-                android:clipChildren="false"
-                android:clipToPadding="false"
-                app:tv_horizontalSpacingWithMargins="12mm"
-                app:tv_selectedItemIsCentered="true"
-                app:tv_verticalSpacingWithMargins="12mm"/>
+            android:id="@+id/episodeView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12mm"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            app:tv_horizontalSpacingWithMargins="12mm"
+            app:tv_selectedItemIsCentered="true"
+            app:tv_verticalSpacingWithMargins="12mm" />
     </LinearLayout>
 
+    <!--    播放屏幕-->
     <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/previewPlayer"
-            android:layout_width="@dimen/vs_470"
-            android:layout_height="@dimen/vs_300"
-            android:layout_marginStart="@dimen/vs_50"
-            android:layout_marginLeft="@dimen/vs_50"
-            android:layout_marginTop="@dimen/vs_20"
-            android:layout_marginBottom="@dimen/vs_10"
-            android:visibility="gone"/>
+        android:id="@+id/previewPlayer"
+        android:layout_width="622mm"
+        android:layout_height="350mm"
+        android:layout_marginLeft="24mm"
+        android:layout_marginTop="24mm"
+        android:visibility="gone" />
+
     <View
-            android:id="@+id/previewPlayerBlock"
-            android:layout_width="@dimen/vs_470"
-            android:layout_height="@dimen/vs_300"
-            android:focusable="true"
-            android:background="@drawable/preview_player_block"
-            android:layout_marginStart="@dimen/vs_50"
-            android:layout_marginLeft="@dimen/vs_50"
-            android:layout_marginTop="@dimen/vs_20"
-            android:layout_marginBottom="@dimen/vs_10"
-            android:visibility="gone"/>
+        android:id="@+id/previewPlayerBlock"
+        android:layout_width="622mm"
+        android:layout_height="350mm"
+        android:layout_marginLeft="24mm"
+        android:layout_marginTop="24mm"
+        android:background="@drawable/preview_player_block"
+        android:focusable="true"
+        android:visibility="gone" />
 </FrameLayout>

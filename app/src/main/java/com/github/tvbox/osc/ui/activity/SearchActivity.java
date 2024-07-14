@@ -73,7 +73,6 @@ public class SearchActivity extends BaseActivity {
     private RemoteDialog remoteDialog;
     private EditText searchText;
     private ImageView tvSearch;
-    private TextView tvSearchWord;
     private TextView keyDeleteAll;
     private TextView keyDelete;
     private TextView remoteSearch;
@@ -293,12 +292,19 @@ public class SearchActivity extends BaseActivity {
         }
 
         if (hasKeyBoard) {
-            searchText.requestFocus();
-            searchText.requestFocusFromTouch();
-        } else {
-            if (!isSearchBack) {
+            String keyWord = searchText.getText().toString().trim();
+            if (TextUtils.isEmpty(keyWord)) {
                 searchText.requestFocus();
                 searchText.requestFocusFromTouch();
+            } else {
+                tvSearch.requestFocus();
+                tvSearch.requestFocusFromTouch();
+            }
+
+        } else {
+            if (!isSearchBack) {
+                tvSearch.requestFocus();
+                tvSearch.requestFocusFromTouch();
             }
         }
     }
@@ -307,7 +313,6 @@ public class SearchActivity extends BaseActivity {
         EventBus.getDefault().register(this);
         llLayout = findViewById(R.id.llLayout);
         searchText = findViewById(R.id.searchText);
-        tvSearchWord = findViewById(R.id.tvSearchWord);
         tvSearch = findViewById(R.id.tvSearch);
         tvSearchCheckboxBtn = findViewById(R.id.tvSearchCheckboxBtn);
         keyDeleteAll = findViewById(R.id.keyDeleteAll);

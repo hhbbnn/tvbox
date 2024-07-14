@@ -1,5 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--    不透明-->
+    <color name="color_00FF0A">#00FF0A</color> <!-- 绿色 -->
+    <color name="color_CBF46A">#CBF46A</color> <!-- 浅绿色 -->
+    <color name="color_FF90CA09">#90CA09</color> <!-- 黄绿色 -->
+    <color name="color_BD0CADE2">#BD0CADE2</color> <!-- 紫色 -->
+    <color name="color_FF0057">#FF0057</color> <!-- 红色 -->
+    <color name="color_FF5F00">#FF5F00</color> <!-- 橙色 -->
+    <color name="color_FFB6C1">#FFB6C1</color> <!-- 浅粉色 -->
+    <color name="color_3D3D3D">#3D3D3D</color> <!-- 深灰 -->
+    <color name="color_32364E">#32364E</color> <!-- 深蓝灰 -->
+    <color name="color_0CADE2">#0CADE2</color> <!-- 青色 -->
+    <color name="color_2BFFFFFF">#2BFFFFFF</color> <!-- 很淡的灰色 -->
+    <color name="color_1AFFFFFF">#1AFFFFFF</color> <!-- 淡灰色 -->
+    <color name="color_FFFFFF">#FFFFFFFF</color> <!-- 白色 -->
+    <color name="color_02F8E1">#02F8E1</color> <!-- 蓝绿色 -->
+    <color name="color_353744">#353744</color> <!-- 深灰蓝色 -->
+    <color name="color_CC353744">#CC353744</color> <!-- 中等透明度的深灰蓝色 -->
+    <color name="color_6C3D3D3D">#6C3D3D3D</color> <!-- 中等透明度的深灰 -->
+    <color name="color_BBFFFFFF">#BBFFFFFF</color> <!-- 浅灰色 -->
+
+    <!--    透明-->
+    <!--    白色-->
+    <color name="color_FFFFFF_100">#FFFFFFFF</color> <!-- 完全不透明 -->
+    <color name="color_FFFFFF_95">#FEFFFFFF</color>
+    <color name="color_FFFFFF_90">#FCFFFFFF</color>
+    <color name="color_FFFFFF_85">#F9FFFFFF</color>
+    <color name="color_FFFFFF_80">#F5FFFFFF</color>
+    <color name="color_FFFFFF_75">#F2FFFFFF</color>
+    <color name="color_FFFFFF_70">#EFFFFFFF</color>
+    <color name="color_FFFFFF_65">#EBFFFFFF</color>
+    <color name="color_FFFFFF_60">#E7FFFFFF</color>
+    <color name="color_FFFFFF_55">#E3FFFFFF</color>
+    <color name="color_FFFFFF_50">#DEFFFFFF</color>
+    <color name="color_FFFFFF_45">#DAFFFFFF</color>
+    <color name="color_FFFFFF_40">#D6FFFFFF</color>
+    <color name="color_FFFFFF_35">#D1FFFFFF</color>
+    <color name="color_FFFFFF_30">#CDFFFFFF</color>
+    <color name="color_FFFFFF_25">#C8FFFFFF</color>
+    <color name="color_FFFFFF_20">#C3FFFFFF</color>
+    <color name="color_FFFFFF_15">#BEFFFFFF</color>
+    <color name="color_FFFFFF_10">#B9FFFFFF</color>
+    <color name="color_FFFFFF_05">#B4FFFFFF</color>
+    <color name="color_FFFFFF_00">#00FFFFFF</color> <!-- 完全透明，此处修正应为 #00FFFFFF -->
+
+    <!--    黑色-->
+    <color name="color_000000_100">#FF000000</color> <!-- 完全不透明 -->
+    <color name="color_000000_95">#FF0A0A0A</color>
+    <color name="color_000000_90">#FF141414</color>
+    <color name="color_000000_85">#FF1E1E1E</color>
+    <color name="color_000000_80">#FF282828</color>
+    <color name="color_000000_75">#FF323232</color>
+    <color name="color_000000_70">#FF3C3C3C</color>
+    <color name="color_000000_65">#FF464646</color>
+    <color name="color_000000_60">#FF505050</color>
+    <color name="color_000000_55">#FF5A5A5A</color>
+    <color name="color_000000_50">#FF646464</color>
+    <color name="color_000000_45">#FF6E6E6E</color>
+    <color name="color_000000_40">#FF787878</color>
+    <color name="color_000000_35">#FF828282</color>
+    <color name="color_000000_30">#FF8C8C8C</color>
+    <color name="color_000000_25">#FF969696</color>
+    <color name="color_000000_20">#FFA0A0A0</color>
+    <color name="color_000000_15">#FFAAAAAA</color>
+    <color name="color_000000_10">#FFB4B4B4</color>
+    <color name="color_000000_05">#FFBCBCBC</color>
+    <color name="color_000000_00">#00000000</color>
+
+
+    <!--    其他颜色-->
+    <color name="color_6632364E">#6632364E</color> <!-- 半透明深蓝灰 -->
+    <color name="color_66000000">#66000000</color> <!-- 半透明黑色 -->
+    <color name="color_99000000">#99000000</color> <!-- 更浅的半透明黑色 -->
+    <color name="color_CC000000">#CC000000</color> <!-- 中等透明黑色 -->
+    <color name="color_80FF0057">#66FF0057</color> <!-- 红色，透明度66% （原标记可能有误） -->
+    <color name="color_B3FFFFFF">#B3FFFFFF</color> <!-- 很淡的灰色，透明度70% -->
+    <color name="color_33FFFFFF">#33FFFFFF</color> <!-- 很淡的灰色，透明度20% -->
+    <color name="color_99FFFFFF">#4D000000</color> <!-- 错误标记，应为某种透明黑色 -->
+    <color name="color_59353744">#59353744</color> <!-- 深灰蓝色，透明度40% -->
+
     <color name="color_6200EE">#6200EE</color>
     <color name="color_3700B3">#3700B3</color>
     <color name="color_03DAC5">#03DAC5</color>
@@ -7,39 +86,7 @@
     <color name="color_1890FF">#1890FF</color>
     <color name="color_1890ffa8">#1890ffa8</color>
     <color name="color_FFB800">#FF6600</color>
-    <color name="color_00FF0A">#00FF0A</color>
-    <color name="color_CBF46A">#CBF46A</color>
-    <color name="color_FF90CA09">#90CA09</color>
-    <color name="color_BD0CADE2">#BD0CADE2</color>
-    <color name="color_FF0057">#FF0057</color>
-    <color name="color_FF5F00">#FF5F00</color>
-    <color name="color_FFB6C1">#FFB6C1</color>
-    <color name="color_3D3D3D">#3D3D3D</color>
-    <color name="color_32364E">#32364E</color>
-    <color name="color_6632364E">#6632364E</color>
     <color name="color_CCFFFFFF">#BBFFFFFF</color>
-    <color name="color_0CADE2">#0CADE2</color>
     <color name="color_6CFFFFFF">#6CFFFFFF</color>
-    <color name="color_2BFFFFFF">#2bffffff</color>
-    <color name="color_1AFFFFFF">#1Affffff</color>
-    <color name="color_66000000">#66000000</color>
-    <color name="color_99000000">#99000000</color>
-    <color name="color_FFFFFF_50">#80FFFFFF</color>
-    <color name="color_CC000000">#CC000000</color>
-    <color name="color_000000_30">#48000000</color>
-    <color name="color_02F8E1">#02F8E1</color>
-    <color name="color_353744">#353744</color>
-    <color name="color_CC353744">#CC353744</color>
-    <color name="color_6C3D3D3D">#6c3d3d3d</color>
-    <color name="color_BBFFFFFF">#bbffffff</color>
-    <color name="color_FFFFFF">#ffffffff</color>
-    <!--    70%透明-->
-    <color name="color_FFFFFFB3">#ffffffb3</color>
-    <color name="color_33FFFFFF">#33ffffff</color>
-    <color name="color_99FFFFFF">#4D000000</color>
-    <color name="color_59353744">#59353744</color>
-    <color name="color_80FF0057">#66FF0057</color>
-    <color name="color_000000_60">#99000000</color>
-    <color name="color_000000_00">#00000000</color>
 
 </resources>

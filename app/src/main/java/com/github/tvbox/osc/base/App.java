@@ -3,7 +3,7 @@ package com.github.tvbox.osc.base;
 import android.app.Activity;
 import androidx.multidex.MultiDexApplication;
 import com.github.catvod.crawler.JsLoader;
-import com.github.tvbox.osc.bean.VodInfo;
+import com.github.tvbox.osc.bean.VideoInfo;
 import com.github.tvbox.osc.callback.EmptyCallback;
 import com.github.tvbox.osc.callback.LoadingCallback;
 import com.github.tvbox.osc.data.AppDataManager;
@@ -80,12 +80,12 @@ public class App extends MultiDexApplication {
     }
 
 
-    private VodInfo vodInfo;
-    public void setVodInfo(VodInfo vodinfo){
-        this.vodInfo = vodinfo;
+    private VideoInfo videoInfo;
+    public void setVodInfo(VideoInfo vodinfo){
+        this.videoInfo = vodinfo;
     }
-    public VodInfo getVodInfo(){
-        return this.vodInfo;
+    public VideoInfo getVodInfo(){
+        return this.videoInfo;
     }
 
     public static P2PClass getp2p() {

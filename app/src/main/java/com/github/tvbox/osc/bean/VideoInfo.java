@@ -1,11 +1,8 @@
 package com.github.tvbox.osc.bean;
 
-import com.github.tvbox.osc.api.ApiConfig;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
@@ -15,7 +12,7 @@ import java.util.Set;
  * @date :2020/12/22
  * @description:
  */
-public class VodInfo implements Serializable {
+public class VideoInfo implements Serializable {
     public String last;//时间
     //内容id
     public String id;

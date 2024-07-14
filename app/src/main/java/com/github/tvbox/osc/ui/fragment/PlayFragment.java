@@ -47,7 +47,7 @@ import com.github.tvbox.osc.base.BaseLazyFragment;
 import com.github.tvbox.osc.bean.ParseBean;
 import com.github.tvbox.osc.bean.SourceBean;
 import com.github.tvbox.osc.bean.Subtitle;
-import com.github.tvbox.osc.bean.VodInfo;
+import com.github.tvbox.osc.bean.VideoInfo;
 import com.github.tvbox.osc.cache.CacheManager;
 import com.github.tvbox.osc.event.RefreshEvent;
 import com.github.tvbox.osc.player.IjkMediaPlayer;
@@ -225,7 +225,7 @@ public class PlayFragment extends BaseLazyFragment {
 
             @Override
             public void updatePlayerCfg() {
-                mVodInfo.playerCfg = mVodPlayerCfg.toString();
+                mVideoInfo.playerCfg = mVodPlayerCfg.toString();
                 EventBus.getDefault().post(new RefreshEvent(RefreshEvent.TYPE_REFRESH, mVodPlayerCfg));
             }
 
@@ -317,10 +317,10 @@ public class PlayFragment extends BaseLazyFragment {
                         });
                     }
                 });
-                if(mVodInfo.playFlag.contains("Ali")||mVodInfo.playFlag.contains("parse")){
-                    searchSubtitleDialog.ssearchTextWord(mVodInfo.playNote);
+                if(mVideoInfo.playFlag.contains("Ali")|| mVideoInfo.playFlag.contains("parse")){
+                    searchSubtitleDialog.ssearchTextWord(mVideoInfo.playNote);
                 }else {
-                    searchSubtitleDialog.ssearchTextWord(mVodInfo.name);
+                    searchSubtitleDialog.ssearchTextWord(mVideoInfo.name);
                 }
                 searchSubtitleDialog.show();
             }
@@ -526,8 +526,8 @@ public class PlayFragment extends BaseLazyFragment {
                         try {
                             int playerType = mVodPlayerCfg.getInt("pl");
                             if (playerType >= 10) {
-                                VodInfo.VodSeries vs = mVodInfo.seriesMap.get(mVodInfo.playFlag).get(mVodInfo.playIndex);
-                                String playTitle = mVodInfo.name + " " + vs.name;
+                                VideoInfo.VodSeries vs = mVideoInfo.seriesMap.get(mVideoInfo.playFlag).get(mVideoInfo.playIndex);
+                                String playTitle = mVideoInfo.name + " " + vs.name;
                                 setTip("调用外部播放器" + PlayerHelper.getPlayerName(playerType) + "进行播放", true, false);
                                 boolean callResult = false;
                                 long progress = getSavedProgress(progressKey);
@@ -703,7 +703,7 @@ public class PlayFragment extends BaseLazyFragment {
 
     public void setData(Bundle bundle) {
 //        mVodInfo = (VodInfo) bundle.getSerializable("VodInfo");
-        mVodInfo = App.getInstance().getVodInfo();
+        mVideoInfo = App.getInstance().getVodInfo();
         sourceKey = bundle.getString("sourceKey");
         sourceBean = ApiConfig.get().getSource(sourceKey);
         initPlayerCfg();
@@ -719,7 +719,7 @@ public class PlayFragment extends BaseLazyFragment {
 
     void initPlayerCfg() {
         try {
-            mVodPlayerCfg = new JSONObject(mVodInfo.playerCfg);
+            mVodPlayerCfg = new JSONObject(mVideoInfo.playerCfg);
         } catch (Throwable th) {
             mVodPlayerCfg = new JSONObject();
         }
@@ -817,39 +817,39 @@ public class PlayFragment extends BaseLazyFragment {
         App.getInstance().setDashData(null);
     }
 
-    private VodInfo mVodInfo;
+    private VideoInfo mVideoInfo;
     private JSONObject mVodPlayerCfg;
     private String sourceKey;
     private SourceBean sourceBean;
 
     private void playNext(boolean isProgress) {
         boolean hasNext;
-        if (mVodInfo == null || mVodInfo.seriesMap.get(mVodInfo.playFlag) == null) {
+        if (mVideoInfo == null || mVideoInfo.seriesMap.get(mVideoInfo.playFlag) == null) {
             hasNext = false;
         } else {
-            hasNext = mVodInfo.playIndex + 1 < mVodInfo.seriesMap.get(mVodInfo.playFlag).size();
+            hasNext = mVideoInfo.playIndex + 1 < mVideoInfo.seriesMap.get(mVideoInfo.playFlag).size();
         }
         if (!hasNext) {
             Toast.makeText(requireContext(), "已经是最后一集了!", Toast.LENGTH_SHORT).show();
             return;
         }else {
-            mVodInfo.playIndex++;
+            mVideoInfo.playIndex++;
         }
         play(false);
     }
 
     private void playPrevious() {
         boolean hasPre = true;
-        if (mVodInfo == null || mVodInfo.seriesMap.get(mVodInfo.playFlag) == null) {
+        if (mVideoInfo == null || mVideoInfo.seriesMap.get(mVideoInfo.playFlag) == null) {
             hasPre = false;
         } else {
-            hasPre = mVodInfo.playIndex - 1 >= 0;
+            hasPre = mVideoInfo.playIndex - 1 >= 0;
         }
         if (!hasPre) {
             Toast.makeText(requireContext(), "已经是第一集了!", Toast.LENGTH_SHORT).show();
             return;
         }
-        mVodInfo.playIndex--;
+        mVideoInfo.playIndex--;
         play(false);
     }
 
@@ -883,18 +883,18 @@ public class PlayFragment extends BaseLazyFragment {
     }
 
     public void play(boolean reset) {
-        if(mVodInfo==null)return;
-        VodInfo.VodSeries vs = mVodInfo.seriesMap.get(mVodInfo.playFlag).get(mVodInfo.playIndex);
-        EventBus.getDefault().post(new RefreshEvent(RefreshEvent.TYPE_REFRESH, mVodInfo.playIndex));
+        if(mVideoInfo ==null)return;
+        VideoInfo.VodSeries vs = mVideoInfo.seriesMap.get(mVideoInfo.playFlag).get(mVideoInfo.playIndex);
+        EventBus.getDefault().post(new RefreshEvent(RefreshEvent.TYPE_REFRESH, mVideoInfo.playIndex));
         setTip("正在获取播放信息", true, false);
-        String playTitleInfo = mVodInfo.name + " " + vs.name;
+        String playTitleInfo = mVideoInfo.name + " " + vs.name;
         mController.setTitle(playTitleInfo);
 
         stopParse();
         initParseLoadFound();
         if(mVideoView!=null) mVideoView.release();
-        String subtitleCacheKey = mVodInfo.sourceKey + "-" + mVodInfo.id + "-" + mVodInfo.playFlag + "-" + mVodInfo.playIndex+ "-" + vs.name + "-subt";
-        String progressKey = mVodInfo.sourceKey + mVodInfo.id + mVodInfo.playFlag + mVodInfo.playIndex + vs.name;
+        String subtitleCacheKey = mVideoInfo.sourceKey + "-" + mVideoInfo.id + "-" + mVideoInfo.playFlag + "-" + mVideoInfo.playIndex+ "-" + vs.name + "-subt";
+        String progressKey = mVideoInfo.sourceKey + mVideoInfo.id + mVideoInfo.playFlag + mVideoInfo.playIndex + vs.name;
         //重新播放清除现有进度
         if (reset) {
             CacheManager.delete(MD5.string2MD5(progressKey), 0);
@@ -944,7 +944,7 @@ public class PlayFragment extends BaseLazyFragment {
             mController.showParse(false);
             return;
         }
-        sourceViewModel.getPlay(sourceKey, mVodInfo.playFlag, progressKey, vs.url, subtitleCacheKey);
+        sourceViewModel.getPlay(sourceKey, mVideoInfo.playFlag, progressKey, vs.url, subtitleCacheKey);
     }
 
     private String playSubtitle;

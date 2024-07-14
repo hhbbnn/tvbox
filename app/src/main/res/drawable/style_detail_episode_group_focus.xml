@@ -2,8 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_focused="true">
         <shape>
-            <solid android:color="@color/color_1890FF"/> <!-- 这里设置下划线的颜色为红色 -->
-            <size android:height="2dp"/> <!-- 设置下划线的高度 -->
+            <solid android:color="@color/color_1890FF" />
         </shape>
     </item>
 </selector>

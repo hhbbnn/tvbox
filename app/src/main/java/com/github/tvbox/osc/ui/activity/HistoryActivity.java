@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.github.tvbox.osc.R;
 import com.github.tvbox.osc.base.BaseActivity;
-import com.github.tvbox.osc.bean.VodInfo;
+import com.github.tvbox.osc.bean.VideoInfo;
 import com.github.tvbox.osc.cache.RoomDataManger;
 import com.github.tvbox.osc.event.RefreshEvent;
 import com.github.tvbox.osc.ui.adapter.HistoryAdapter;
@@ -117,16 +117,16 @@ public class HistoryActivity extends BaseActivity {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 FastClickCheckUtil.check(view);
                 if (position == -1) return;
-                VodInfo vodInfo = historyAdapter.getData().get(position);
+                VideoInfo videoInfo = historyAdapter.getData().get(position);
 
-                if (vodInfo != null) {
+                if (videoInfo != null) {
                     if (delMode) {
                         historyAdapter.remove(position);
-                        RoomDataManger.deleteVodRecord(vodInfo.sourceKey, vodInfo);
+                        RoomDataManger.deleteVodRecord(videoInfo.sourceKey, videoInfo);
                     } else {
                         Bundle bundle = new Bundle();
-                        bundle.putString("id", vodInfo.id);
-                        bundle.putString("sourceKey", vodInfo.sourceKey);
+                        bundle.putString("id", videoInfo.id);
+                        bundle.putString("sourceKey", videoInfo.sourceKey);
                         jumpActivity(DetailActivity.class, bundle);
                     }
                 }
@@ -143,14 +143,14 @@ public class HistoryActivity extends BaseActivity {
     }
 
     private void initData() {
-        List<VodInfo> allVodRecord = RoomDataManger.getAllVodRecord(100);
-        List<VodInfo> vodInfoList = new ArrayList<>();
-        for (VodInfo vodInfo : allVodRecord) {
-            if (vodInfo.playNote != null && !vodInfo.playNote.isEmpty())
-                vodInfo.note = "看到 " + vodInfo.playNote;
-            vodInfoList.add(vodInfo);
+        List<VideoInfo> allVodRecord = RoomDataManger.getAllVodRecord(100);
+        List<VideoInfo> videoInfoList = new ArrayList<>();
+        for (VideoInfo videoInfo : allVodRecord) {
+            if (videoInfo.playNote != null && !videoInfo.playNote.isEmpty())
+                videoInfo.note = "看到 " + videoInfo.playNote;
+            videoInfoList.add(videoInfo);
         }
-        historyAdapter.setNewData(vodInfoList);
+        historyAdapter.setNewData(videoInfoList);
     }
 
 

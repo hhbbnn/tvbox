@@ -66,13 +66,29 @@
                     android:textSize="@dimen/ts_30" />
             </LinearLayout>
 
+            <!--            设置-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="44mm"
+                    android:gravity="center"
+                    android:text="应用设置"
+                    android:textColor="@android:color/white"
+                    android:textSize="30mm" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20mm"
                 android:layout_marginBottom="12mm"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="0mm">
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -129,10 +145,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="6mm"
                 android:layout_marginBottom="12mm"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="0mm">
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -364,11 +380,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="12mm"
+                android:layout_marginTop="6mm"
                 android:layout_marginBottom="12mm"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="0mm">
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -562,11 +577,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="12mm"
+                android:layout_marginTop="6mm"
                 android:layout_marginBottom="12mm"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="0mm">
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -670,11 +684,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="12mm"
+                android:layout_marginTop="6mm"
                 android:layout_marginBottom="12mm"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="0mm">
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"

@@ -1,19 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="600mm"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:background="@drawable/shape_dialog_bg_main"
     android:orientation="vertical"
-    android:padding="@dimen/vs_30">
+    android:padding="36mm">
 
     <TextView
-        android:layout_width="@dimen/vs_600"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:lineSpacingExtra="@dimen/ts_50"
-        android:lineSpacingMultiplier="0"
-        android:text="本软件只提供聚合展示功能，所有资源来自网上, 软件不参与任何制作, 上传, 储存, 下载等内容. 软件仅供学习参考, 请于安装后24小时内删除。\n\n打包分发请保留出处\nhttps://github.com/CatVodTVOfficial/TVBoxOSC\nhttps://github.com/q215613905/TVBoxOS"
-        android:textColor="@color/color_CC000000"
+        android:text="关于TVBox"
+        android:textColor="@color/color_1890FF"
+        android:textSize="24mm"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6mm"
+        android:text="本软件仅提供资源聚合展示功能，所有展示的内容均来源于互联网上。"
+        android:textColor="@color/color_000000_90"
+        android:textSize="@dimen/ts_24" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12mm"
+        android:text="本软件并不参与资源的制作、上传、储存或下载等任何环节。软件的主要目的是为用户提供一个学习参考平台。"
+        android:textColor="@color/color_000000_90"
+        android:textSize="@dimen/ts_24" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12mm"
+        android:text="对于使用本软件的所有个人和组织，请注意：您应当在24小时内完成对软件的学习参考和研究工作。在完成后，为了遵守相关法律法规和尊重知识产权，请务必及时删除本软件。"
+        android:textColor="@color/color_000000_90"
+        android:textSize="@dimen/ts_24" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12mm"
+        android:text="希望所有用户都能理解并遵守这一规定，共同维护一个健康、有序的网络环境。"
+        android:textColor="@color/color_000000_90"
+        android:textSize="@dimen/ts_24" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24mm"
+        android:text="打包分发记录"
+        android:textColor="@color/color_1890FF"
+        android:textSize="24mm"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6mm"
+        android:text="https://github.com/llazyl/TVBox
+        \nhttps://github.com/q215613905/TVBoxOS
+        \nhttps://github.com/smashtv/TVBox"
+        android:textColor="@color/color_000000_90"
         android:textSize="@dimen/ts_24" />
 
 </LinearLayout>

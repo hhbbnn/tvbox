@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="12mm"
+    android:background="@drawable/style_detail_episode_group_focus"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical"
+    android:padding="12mm">
+
+    <!--    集分组-->
+    <TextView
+        android:id="@+id/tvSeriesGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:singleLine="true"
+        android:text="1-20"
+        android:textColor="@color/color_FFFFFF_50"
+        android:textSize="20mm" />
+</LinearLayout>
